@@ -1,0 +1,2499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f0f0e">
+<title>Meditation Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0f0e;
+  --bg-card: #1a1918;
+  --bg-card-hover: #211f1d;
+  --bg-active: #272420;
+  --bg-sheet: #1e1d1b;
+  --text: #d4cec4;
+  --text-dim: #8a847a;
+  --text-bright: #f0ebe3;
+  --accent: #c9a96e;
+  --accent-dim: #8a7548;
+  --accent-glow: rgba(201, 169, 110, 0.08);
+  --sub-text: #b5a880;
+  --border: #2a2725;
+  --border-light: #353230;
+  --cat-foundation: #7ba38e;
+  --cat-concentration: #6e9ec9;
+  --cat-insight: #c9886e;
+  --cat-nondual: #b07ec9;
+  --cat-traps: #c96e6e;
+  --cat-integration: #c9b86e;
+  --cat-science: #6ec9c0;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tab-h: 64px;
+  --transition: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* ═══════════ LIGHT / DAY MODE ═══════════ */
+html.light {
+  --bg: #f4f0e8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #faf8f4;
+  --bg-active: #f0ece2;
+  --bg-sheet: #faf8f5;
+  --text: #4a453d;
+  --text-dim: #8e8880;
+  --text-bright: #2c2824;
+  --accent: #9a7d4e;
+  --accent-dim: #b8a07a;
+  --accent-glow: rgba(154, 125, 78, 0.07);
+  --sub-text: #6b6050;
+  --border: #e2ddd4;
+  --border-light: #d4cec4;
+  --cat-foundation: #5a9474;
+  --cat-concentration: #5b8ab5;
+  --cat-insight: #c07a58;
+  --cat-nondual: #9668ad;
+  --cat-traps: #c06060;
+  --cat-integration: #a89545;
+  --cat-science: #4a9e96;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; transition: background-color 0.4s ease, color 0.4s ease; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-weight: 300;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  padding-bottom: calc(var(--tab-h) + var(--safe-bottom) + 8px);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+html.light body::before { opacity: 0.4; }
+
+/* ═══════════════ BOTTOM TAB BAR ═══════════════ */
+.tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: calc(var(--tab-h) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: var(--tab-bg, #141312);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+html.light { --tab-bg: rgba(250, 248, 244, 0.92); }
+
+.tab-slider-pill {
+  position: absolute;
+  top: 6px;
+  height: calc(var(--tab-h) - 12px);
+  width: calc(25% - 6px);
+  left: 0.5%;
+  background: var(--bg-card);
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  transition: left 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+html.light .tab-slider-pill {
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  background: #fff;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 8px 0;
+  position: relative;
+  z-index: 2;
+}
+.tab svg { width: 26px; height: 26px; }
+.tab.active { color: var(--accent); }
+
+/* ═══════════════ VIEWS ═══════════════ */
+.view { display: none; }
+.view.active { display: block; }
+.view.fade-in {
+  animation: viewFadeIn 0.3s ease forwards;
+}
+@keyframes viewFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════ HEADER ═══════════════ */
+.header {
+  padding: 48px 20px 20px;
+  text-align: center;
+}
+.header-symbol { font-size: 20px; color: var(--accent); letter-spacing: 12px; margin-bottom: 16px; opacity: 0.5; }
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 2.1rem;
+  color: var(--text-bright);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.header p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; max-width: 320px; margin: 0 auto; }
+
+/* ═══════════════ SEARCH ═══════════════ */
+.search-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 10px 16px;
+  background: var(--search-bg, rgba(15,15,14,0.92));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+html.light { --search-bg: rgba(244, 240, 232, 0.92); }
+
+.search-wrap { position: relative; }
+.search-wrap svg {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--text-dim); width: 18px; height: 18px;
+}
+.search-input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-bright);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; /* prevents iOS zoom */
+  font-weight: 300;
+  outline: none;
+  transition: all var(--transition);
+}
+.search-input::placeholder { color: var(--text-dim); }
+.search-input:focus {
+  border-color: var(--accent-dim);
+  background: var(--bg-card-hover);
+}
+
+/* ═══════════════ FILTER CHIPS ═══════════════ */
+.filter-scroll {
+  padding: 0 16px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 100vw;
+}
+.filter-scroll::-webkit-scrollbar { display: none; }
+
+.filter-chip {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.filter-chip.active {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+.filter-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+}
+
+/* ═══════════════ LIST CARDS ═══════════════ */
+.card-list { padding: 0 18px 28px; }
+
+.m-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color var(--transition), background var(--transition);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.m-card-head {
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 62px;
+  cursor: pointer;
+}
+
+.m-card-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.m-card-info { flex: 1; min-width: 0; }
+
+.m-card-term {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 500;
+  color: var(--text-bright);
+  line-height: 1.25;
+}
+.m-card-simple {
+  font-size: 0.92rem;
+  color: var(--sub-text);
+  line-height: 1.4;
+  margin-top: 3px;
+}
+
+.m-card-chevron {
+  width: 20px; height: 20px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+.m-card.open .m-card-chevron { transform: rotate(180deg); color: var(--accent); }
+.m-card.open { border-color: var(--accent-dim); background: var(--bg-active); }
+
+.m-card-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.m-card.open .m-card-body { grid-template-rows: 1fr; }
+
+.m-card-content {
+  overflow: hidden;
+  padding: 0 18px 0 38px;
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0; transform: translateY(-8px);
+  transition: opacity 0.35s ease 0.1s, transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) 0.08s;
+}
+.m-card.open .m-card-content {
+  padding-bottom: 18px;
+  opacity: 1; transform: translateY(0);
+}
+
+.m-analogy {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--analogy-bg, rgba(201, 169, 110, 0.04));
+  border-left: 2px solid var(--accent-dim);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 1.6;
+  opacity: 0; transform: translateY(-6px);
+  transition: opacity 0.35s ease 0.2s, transform 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) 0.16s;
+}
+.m-card.open .m-analogy { opacity: 1; transform: translateY(0); }
+html.light { --analogy-bg: rgba(154, 125, 78, 0.06); }
+.m-analogy strong { color: var(--accent); font-weight: 400; font-style: normal; }
+
+/* ── Connection chips ── */
+.m-connections { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.m-conn-label {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 2px;
+}
+.m-conn-label.from { color: rgba(123,163,142,0.7); }
+.m-conn-label.to { color: rgba(176,126,201,0.7); }
+.m-conn-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.m-conn-chip {
+  padding: 8px 14px;
+  background: var(--chip-bg, rgba(255,255,255,0.03));
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.88rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex; align-items: center; gap: 5px;
+}
+html.light { --chip-bg: rgba(0,0,0,0.02); }
+.m-conn-chip:active { background: var(--accent-glow); border-color: var(--accent-dim); }
+
+.cat-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 20px 0 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.cat-label .cat-line { flex: 1; height: 1px; background: var(--border); }
+
+.no-results {
+  text-align: center; padding: 48px 20px;
+  color: var(--text-dim);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-style: italic;
+  display: none;
+}
+
+.search-hl {
+  background: rgba(201, 169, 110, 0.25);
+  color: var(--text-bright);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+html.light .search-hl {
+  background: rgba(154, 125, 78, 0.18);
+}
+
+/* ═══════════════ TECH TREE ═══════════════ */
+.tree-header {
+  padding: 48px 20px 12px;
+  text-align: center;
+}
+.tree-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 1.75rem;
+  color: var(--text-bright);
+  margin-bottom: 6px;
+}
+.tree-header p { color: var(--text-dim); font-size: 0.92rem; }
+
+/* Progress ring */
+.tree-progress {
+  padding: 20px 20px 8px;
+  display: flex; align-items: center; gap: 16px;
+}
+.tree-progress-ring {
+  position: relative;
+  width: 72px; height: 72px;
+  flex-shrink: 0;
+}
+.tree-progress-ring svg {
+  width: 72px; height: 72px;
+  transform: rotate(-90deg);
+}
+.tree-progress-ring .ring-bg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 4;
+}
+.tree-progress-ring .ring-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 188.5;
+  stroke-dashoffset: 188.5;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+  filter: drop-shadow(0 0 4px rgba(201, 169, 110, 0.35));
+}
+html.light .tree-progress-ring .ring-fill {
+  filter: drop-shadow(0 0 4px rgba(154, 125, 78, 0.3));
+}
+.tree-progress-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.tree-progress-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 500;
+  color: var(--text-bright);
+  line-height: 1;
+}
+.tree-progress-of {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+.tree-progress-info {
+  flex: 1;
+}
+.tree-progress-label {
+  font-size: 0.82rem; color: var(--text-dim);
+  margin-bottom: 2px;
+}
+.tree-progress-era {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; color: var(--accent);
+  font-style: italic;
+}
+.tree-reset {
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; cursor: pointer;
+  align-self: flex-start;
+}
+.tree-reset:active { border-color: var(--cat-traps); color: var(--cat-traps); }
+
+/* Era sections */
+.tree-eras { padding: 12px 18px 28px; }
+
+.tree-era {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 4px;
+}
+
+/* Vertical timeline line */
+.tree-era::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 46px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.tree-era:last-child::before { display: none; }
+
+.era-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0 12px;
+  position: relative;
+}
+.era-badge::before {
+  content: '';
+  position: absolute;
+  left: -23px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent-dim);
+}
+
+.era-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem; color: var(--accent-dim);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.era-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-weight: 500;
+  color: var(--text-dim);
+}
+
+.era-nodes { display: flex; flex-direction: column; gap: 10px; padding-bottom: 10px; }
+
+/* Tree node */
+.t-node {
+  padding: 0;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  display: flex; flex-direction: column;
+  cursor: default;
+  transition: border-color 0.3s ease, background 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.t-node-head {
+  padding: 16px 18px;
+  display: flex; align-items: center; gap: 14px;
+  min-height: 64px;
+  cursor: pointer;
+}
+.t-node-head:active { opacity: 0.85; }
+
+.t-node.locked {
+  opacity: 0.35;
+  border-style: dashed;
+}
+
+.t-node.available {
+  opacity: 1;
+  border-color: var(--border-light);
+}
+.t-node.available::after {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: 11px;
+  border: 1.5px solid var(--accent-dim);
+  opacity: 0;
+  animation: pulse 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.5; }
+}
+
+.t-node.learned {
+  border-color: var(--accent);
+  background: var(--bg-active);
+  opacity: 1;
+  box-shadow: 0 0 16px -4px rgba(201, 169, 110, 0.3);
+}
+html.light .t-node.learned {
+  box-shadow: 0 2px 12px -2px rgba(154, 125, 78, 0.2);
+}
+
+.t-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: box-shadow var(--transition);
+}
+.t-node.learned .t-dot {
+  box-shadow: 0 0 8px 1px var(--accent);
+}
+
+.t-info { flex: 1; min-width: 0; }
+.t-term {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 500;
+  color: var(--text-bright); line-height: 1.25;
+}
+.t-node.locked .t-term { color: var(--text-dim); }
+
+.t-simple {
+  font-size: 0.92rem; color: var(--sub-text);
+  line-height: 1.4; margin-top: 2px;
+}
+.t-node.learned .t-simple { color: var(--text); }
+
+.t-status {
+  width: 40px; height: 40px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  transition: background var(--transition), border-color var(--transition);
+  position: relative;
+  overflow: visible;
+}
+html.light .t-status { background: rgba(0,0,0,0.02); }
+.t-status:active { background: var(--accent-glow); border-color: var(--accent-dim); }
+.t-status svg { width: 20px; height: 20px; }
+
+/* Learn bounce */
+.t-status.pop {
+  animation: popBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes popBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.35); }
+  50% { transform: scale(0.88); }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Ring burst */
+.t-status .status-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+.t-status.pop .status-ring {
+  animation: ringBurst 0.6s ease-out forwards;
+}
+@keyframes ringBurst {
+  0% { transform: scale(0.5); opacity: 0.9; border-width: 3px; }
+  100% { transform: scale(1.9); opacity: 0; border-width: 0.5px; }
+}
+
+/* Particles */
+.t-status .status-particle {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+.t-status.pop .status-particle {
+  animation: particlePop 0.65s ease-out forwards;
+}
+@keyframes particlePop {
+  0% { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: var(--pp) scale(0); }
+}
+
+.t-prereq {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  background: var(--bg);
+  padding: 1px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  max-width: calc(100% - 28px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 3;
+  margin: -6px 0 4px 36px;
+  pointer-events: none;
+}
+.t-node.locked .t-prereq { opacity: 1; }
+
+/* Expand toggle button */
+.t-expand {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-light);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+  color: var(--text-dim);
+}
+html.light .t-expand { background: rgba(0,0,0,0.03); }
+.t-expand svg { width: 18px; height: 18px; }
+.t-expand:active { background: var(--accent-glow); border-color: var(--accent-dim); }
+.t-node.t-open .t-expand {
+  background: var(--accent-glow);
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+.t-node.locked .t-expand { display: none; }
+
+/* Expandable body — spring physics */
+.t-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.t-node.t-open .t-body { grid-template-rows: 1fr; }
+
+.t-body-inner {
+  overflow: hidden;
+  padding: 0 16px 0 38px;
+  border-top: 1px solid transparent;
+  margin: 0;
+}
+.t-node.t-open .t-body-inner {
+  padding-bottom: 16px;
+  border-top-color: var(--border);
+}
+
+.t-definition {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-top: 12px;
+  opacity: 0; transform: translateY(-8px);
+  transition: opacity 0.35s ease 0.12s, transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) 0.08s;
+}
+.t-node.t-open .t-definition { opacity: 1; transform: translateY(0); }
+
+.t-passage {
+  padding: 12px 14px;
+  background: var(--analogy-bg, rgba(201, 169, 110, 0.04));
+  border-left: 2px solid var(--accent-dim);
+  border-radius: 0 8px 8px 0;
+  opacity: 0; transform: translateY(-6px);
+  transition: opacity 0.35s ease 0.22s, transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1) 0.18s;
+}
+.t-node.t-open .t-passage { opacity: 1; transform: translateY(0); }
+.t-passage-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-bottom: 6px;
+}
+.t-passage-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.t-glossary-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 6px 0;
+  letter-spacing: 0.01em;
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity 0.3s ease 0.35s, transform 0.4s ease 0.3s, color var(--transition);
+}
+.t-node.t-open .t-glossary-link { opacity: 1; transform: translateY(0); }
+.t-glossary-link:active { color: var(--text-bright); }
+
+/* ═══════════════ ERA COMPLETION BANNER ═══════════════ */
+.era-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 0; padding: 0;
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-active) 100%);
+  border-bottom: 1px solid var(--accent-dim);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  overflow: hidden;
+  z-index: 200;
+  opacity: 0;
+  transition: height 0.6s cubic-bezier(0.34, 1.2, 0.64, 1),
+              opacity 0.4s ease,
+              padding 0.6s ease;
+}
+.era-banner.show {
+  height: 180px;
+  padding: 28px 20px;
+  opacity: 1;
+}
+.era-banner-icon {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+  opacity: 0;
+  transform: scale(0) rotate(-180deg);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+}
+.era-banner.show .era-banner-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.era-banner-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-weight: 400;
+  color: var(--text-bright);
+  opacity: 0; transform: translateY(12px);
+  transition: all 0.5s ease 0.5s;
+}
+.era-banner.show .era-banner-title { opacity: 1; transform: translateY(0); }
+.era-banner-sub {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-top: 4px;
+  opacity: 0; transform: translateY(8px);
+  transition: all 0.5s ease 0.65s;
+}
+.era-banner.show .era-banner-sub { opacity: 1; transform: translateY(0); }
+.era-banner::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.6s ease 0.4s;
+}
+.era-banner.show::after { opacity: 1; }
+
+/* ═══════════════ BOOKS VIEW ═══════════════ */
+.books-header {
+  padding: 48px 20px 16px;
+  text-align: center;
+}
+.books-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 1.75rem;
+  color: var(--text-bright); margin-bottom: 6px;
+}
+.books-header p { color: var(--text-dim); font-size: 0.88rem; max-width: 300px; margin: 0 auto; }
+
+#bookList { padding: 0 18px 28px; }
+
+.book-era-section { margin-bottom: 20px; }
+
+.book-era-label {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 0 10px;
+}
+.book-era-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem; color: var(--accent-dim);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.book-era-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 500;
+  color: var(--text-dim);
+}
+.book-era-line { flex: 1; height: 1px; background: var(--border); }
+
+.book-era-cards { display: flex; flex-direction: column; gap: 8px; }
+
+.book-card {
+  padding: 16px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex; gap: 14px; align-items: flex-start;
+  transition: opacity 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+.book-card.dimmed {
+  opacity: 0.3;
+}
+.book-card.active {
+  border-color: var(--accent-dim);
+  background: var(--bg-active);
+}
+
+.book-order {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.92rem; font-weight: 600;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.book-card.active .book-order {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+.book-meta { flex: 1; }
+.book-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 500; font-style: italic;
+  color: var(--text-bright); line-height: 1.3; margin-bottom: 2px;
+}
+.book-author { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 6px; }
+.book-desc { font-size: 1rem; color: var(--sub-text); line-height: 1.5; }
+.book-card.dimmed .book-desc { display: none; }
+
+.book-current-badge {
+  display: none;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-dim);
+  border-radius: 100px;
+  padding: 2px 8px;
+  margin-top: 8px;
+  width: fit-content;
+}
+.book-card.active .book-current-badge { display: inline-block; }
+
+/* Companion reads */
+.book-card.companion {
+  border-style: dashed;
+}
+.book-card.companion .book-order {
+  font-size: 0;
+  position: relative;
+}
+.book-card.companion .book-order::after {
+  content: '◇';
+  font-size: 0.88rem;
+  position: absolute;
+  color: var(--text-dim);
+}
+.book-card.companion.active .book-order::after { color: var(--accent); }
+
+.book-type-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 3px 10px;
+  margin-top: 6px;
+  width: fit-content;
+}
+html.light .book-type-badge { background: rgba(0,0,0,0.02); }
+.book-card.active .book-type-badge { color: var(--sub-text); }
+.book-card.dimmed .book-type-badge { display: none; }
+
+/* Further Afield section */
+.further-afield {
+  padding: 0 16px 32px;
+}
+.further-afield-header {
+  text-align: center;
+  padding: 24px 0 16px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+.further-afield-header h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: 1.35rem; font-style: italic;
+  color: var(--text-bright); margin-bottom: 4px;
+}
+.further-afield-header p { font-size: 0.88rem; color: var(--text-dim); max-width: 280px; margin: 0 auto; }
+.further-afield-cards { display: flex; flex-direction: column; gap: 8px; }
+
+.fa-card {
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  border-style: dashed;
+}
+.fa-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 500; font-style: italic;
+  color: var(--text-bright); line-height: 1.3; margin-bottom: 2px;
+}
+.fa-card-author { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 6px; }
+.fa-card-desc { font-size: 1rem; color: var(--sub-text); line-height: 1.5; }
+.fa-card-tag {
+  display: inline-block;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 3px 10px;
+  margin-top: 8px;
+}
+html.light .fa-card-tag { background: rgba(0,0,0,0.02); }
+
+/* ═══════════════ ANIMATIONS ═══════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Theme toggle */
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 60;
+  transition: background var(--transition), border-color var(--transition);
+  color: var(--text-dim);
+}
+.theme-toggle svg { width: 22px; height: 22px; }
+.theme-toggle:active { background: var(--accent-glow); border-color: var(--accent-dim); }
+/* Hide the wrong icon */
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+html.light .theme-toggle .icon-sun { display: block; }
+html.light .theme-toggle .icon-moon { display: none; }
+/* ═══════════════ SUDOKU GAME ═══════════════ */
+#viewSudoku {
+  --sdk-cell: min(10vw, 42px);
+  padding: 48px 0 20px;
+  flex-direction: column;
+  align-items: center;
+}
+#viewSudoku.active {
+  display: flex;
+}
+#viewSudoku .sdk-header {
+  text-align: center;
+  padding: 0 20px 16px;
+}
+#viewSudoku .sdk-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-weight: 400;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+#viewSudoku .sdk-header p {
+  font-size: 0.88rem; color: var(--text-dim);
+}
+
+/* Top controls row */
+#viewSudoku .sdk-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(9 * var(--sdk-cell) + 4px);
+  padding: 0 2px;
+  margin-bottom: 8px;
+}
+#viewSudoku .sdk-icon-btn {
+  background: none; border: none;
+  color: var(--text-dim);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+#viewSudoku .sdk-icon-btn:active {
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+/* Grid */
+#viewSudoku .sdk-grid {
+  display: grid;
+  grid-template-columns: repeat(9, var(--sdk-cell));
+  gap: 0;
+  background: #ccc;
+  border: 2px solid #999;
+  border-radius: 4px;
+  overflow: hidden;
+}
+#viewSudoku .sdk-cell {
+  width: var(--sdk-cell); height: var(--sdk-cell);
+  border: 1px solid #ddd;
+  display: flex; align-items: center; justify-content: center;
+  font-size: calc(var(--sdk-cell) * 0.55);
+  cursor: pointer;
+  background: #fff;
+  color: #668;
+  user-select: none;
+  position: relative;
+  transition: background 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+}
+/* Box borders */
+#viewSudoku .sdk-cell:nth-child(3n) { border-right-color: #999; }
+#viewSudoku .sdk-cell:nth-child(9n+1) { border-left-color: #999; }
+#viewSudoku .sdk-cell:nth-child(n+1):nth-child(-n+9) { border-top-color: #999; }
+#viewSudoku .sdk-cell:nth-child(n+19):nth-child(-n+27) { border-bottom-color: #999; }
+#viewSudoku .sdk-cell:nth-child(n+46):nth-child(-n+54) { border-bottom-color: #999; }
+#viewSudoku .sdk-cell:nth-child(n+73):nth-child(-n+81) { border-bottom-color: #999; }
+
+/* Cell states */
+#viewSudoku .sdk-cell.given { color: #445; font-weight: 600; }
+#viewSudoku .sdk-cell.selected { background: #c9d4e8 !important; }
+#viewSudoku .sdk-cell.multi-selected { background: #d4dce8 !important; }
+#viewSudoku .sdk-cell.highlight-same { background: #e8d4c9; }
+#viewSudoku .sdk-cell.highlight-related { background: #f0ece8; }
+#viewSudoku .sdk-cell.conflict { background: #e8c9c9 !important; }
+#viewSudoku .sdk-cell.error { background: #e0a8a8 !important; }
+#viewSudoku .sdk-cell.correct-flash { background: #c9e8d4 !important; }
+#viewSudoku .sdk-cell.possible-placement { background: #c9e8dc !important; }
+
+/* Pencil marks */
+#viewSudoku .sdk-cell .pencil {
+  position: absolute; inset: 2px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  pointer-events: none;
+}
+
+/* ── Dark mode Sudoku (default) ── */
+html:not(.light) #viewSudoku .sdk-grid {
+  background: #555;
+  border-color: #666;
+}
+html:not(.light) #viewSudoku .sdk-cell {
+  background: #1c1b18;
+  color: #8899bb;
+  border-color: #2a2825;
+}
+html:not(.light) #viewSudoku .sdk-cell.given { color: #bbc0cc; }
+html:not(.light) #viewSudoku .sdk-cell:nth-child(3n) { border-right-color: #555; }
+html:not(.light) #viewSudoku .sdk-cell:nth-child(9n+1) { border-left-color: #555; }
+html:not(.light) #viewSudoku .sdk-cell:nth-child(n+1):nth-child(-n+9) { border-top-color: #555; }
+html:not(.light) #viewSudoku .sdk-cell:nth-child(n+19):nth-child(-n+27) { border-bottom-color: #555; }
+html:not(.light) #viewSudoku .sdk-cell:nth-child(n+46):nth-child(-n+54) { border-bottom-color: #555; }
+html:not(.light) #viewSudoku .sdk-cell:nth-child(n+73):nth-child(-n+81) { border-bottom-color: #555; }
+html:not(.light) #viewSudoku .sdk-cell.selected { background: #2a3348 !important; }
+html:not(.light) #viewSudoku .sdk-cell.multi-selected { background: #252c3a !important; }
+html:not(.light) #viewSudoku .sdk-cell.highlight-same { background: #3a2c22; }
+html:not(.light) #viewSudoku .sdk-cell.highlight-related { background: #222018; }
+html:not(.light) #viewSudoku .sdk-cell.conflict { background: #3a2222 !important; }
+html:not(.light) #viewSudoku .sdk-cell.error { background: #4a2020 !important; }
+html:not(.light) #viewSudoku .sdk-cell.correct-flash { background: #1e3828 !important; }
+html:not(.light) #viewSudoku .sdk-cell.possible-placement { background: #1e3830 !important; }
+html:not(.light) #viewSudoku .sdk-cell .pencil span { color: #667788; }
+html:not(.light) #viewSudoku .sdk-num-btn.highlight {
+  background: #3a2c22;
+  border-color: #4a3828;
+}
+#viewSudoku .sdk-cell .pencil span {
+  font-size: calc(var(--sdk-cell) * 0.3);
+  color: #8899aa;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Action bar */
+#viewSudoku .sdk-actions {
+  display: flex;
+  gap: 6px;
+  width: calc(9 * var(--sdk-cell) + 4px);
+  margin-top: 8px;
+}
+#viewSudoku .sdk-action-btn {
+  flex: 1;
+  padding: calc(var(--sdk-cell) * 0.22) 0;
+  font-size: 0.78rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  -webkit-tap-highlight-color: transparent;
+}
+#viewSudoku .sdk-action-btn:active { border-color: var(--accent-dim); color: var(--accent); }
+#viewSudoku .sdk-action-btn.active {
+  background: var(--accent-glow);
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* Numpad */
+#viewSudoku .sdk-numpad {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 5px;
+  width: calc(9 * var(--sdk-cell) + 4px);
+  margin-top: 8px;
+}
+#viewSudoku .sdk-num-btn {
+  aspect-ratio: 1;
+  font-size: calc(var(--sdk-cell) * 0.52);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  display: flex; align-items: center; justify-content: center;
+}
+#viewSudoku .sdk-num-btn:active { background: var(--accent-glow); border-color: var(--accent-dim); }
+#viewSudoku .sdk-num-btn.highlight {
+  background: #e8d4c9;
+  border-color: #d4b8a8;
+}
+
+/* Status */
+#viewSudoku .sdk-status {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  width: calc(9 * var(--sdk-cell) + 4px);
+  padding: 0 4px;
+}
+
+/* Menu overlay */
+#viewSudoku .sdk-menu-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 150;
+}
+#viewSudoku .sdk-menu-overlay.show { display: block; }
+
+#viewSudoku .sdk-menu {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  z-index: 160;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  width: 88%;
+  max-width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+#viewSudoku .sdk-menu.show { display: block; }
+
+#viewSudoku .sdk-menu-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+#viewSudoku .sdk-menu-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 400; color: var(--text-bright);
+}
+#viewSudoku .sdk-menu-close {
+  background: none; border: none;
+  font-size: 1.1rem; color: var(--text-dim);
+  cursor: pointer; padding: 2px 6px;
+}
+#viewSudoku .sdk-menu-section {
+  margin-bottom: 14px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+#viewSudoku .sdk-menu-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+#viewSudoku .sdk-menu-label {
+  font-size: 0.68rem; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+#viewSudoku .sdk-menu select {
+  font-size: 0.88rem; padding: 8px 10px;
+  width: 100%; margin-bottom: 10px;
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--text); border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+}
+#viewSudoku .sdk-menu-btn {
+  font-size: 0.85rem; padding: 10px;
+  width: 100%; margin-bottom: 8px; cursor: pointer;
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--text-dim); border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+#viewSudoku .sdk-menu-btn:active { border-color: var(--accent-dim); color: var(--accent); }
+#viewSudoku .sdk-menu-btn:last-child { margin-bottom: 0; }
+
+</style>
+</head>
+<body>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>
+</button>
+
+<!-- ════════ TECH TREE VIEW ════════ -->
+<div class="view active" id="viewTree">
+  <div class="tree-header">
+    <h2>Practice Tree</h2>
+    <p>Tap to learn. Unlock the path from foundations to integration.</p>
+  </div>
+  <div class="tree-progress">
+    <div class="tree-progress-ring">
+      <svg viewBox="0 0 72 72">
+        <circle class="ring-bg" cx="36" cy="36" r="30"/>
+        <circle class="ring-fill" id="ringFill" cx="36" cy="36" r="30"/>
+      </svg>
+      <div class="tree-progress-center">
+        <div class="tree-progress-num" id="tpNum">0</div>
+        <div class="tree-progress-of">of 26</div>
+      </div>
+    </div>
+    <div class="tree-progress-info">
+      <div class="tree-progress-label">Current focus</div>
+      <div class="tree-progress-era" id="tpEra">Era I — Foundations</div>
+    </div>
+    <button class="tree-reset" id="treeReset">Reset</button>
+  </div>
+  <div class="tree-eras" id="treeEras"></div>
+</div>
+
+<!-- ════════ LIST VIEW ════════ -->
+<div class="view" id="viewList">
+  <div class="header">
+    <div class="header-symbol">◇ ◇ ◇</div>
+    <h1>Meditation Reference</h1>
+    <p>Tap any term to explore, then follow the connections.</p>
+  </div>
+
+  <div class="search-bar" id="searchBar">
+    <div class="search-wrap">
+      <input type="text" class="search-input" placeholder="Search..." id="searchInput">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+    </div>
+  </div>
+
+  <div class="filter-scroll" id="filterScroll"></div>
+  <div class="card-list" id="cardList"></div>
+  <div class="no-results" id="noResults">Nothing found.</div>
+</div>
+
+<!-- ════════ BOOKS VIEW ════════ -->
+<div class="view" id="viewBooks">
+  <div class="books-header">
+    <h2>Reading Path</h2>
+    <p>Books matched to where you are in the tree. Highlighted titles are your current reads.</p>
+  </div>
+  <div id="bookList"></div>
+  <div class="further-afield" id="furtherAfield"></div>
+</div>
+
+<!-- ════════ SUDOKU VIEW ════════ -->
+<div class="view" id="viewSudoku">
+  <div class="sdk-header">
+    <h2>Sudoku</h2>
+    <p>A contemplative break. No guessing required.</p>
+  </div>
+
+  <div class="sdk-menu-overlay" id="sdkMenuOverlay"></div>
+  <div class="sdk-menu" id="sdkMenu">
+    <div class="sdk-menu-header">
+      <span class="sdk-menu-title">New Puzzle</span>
+      <button class="sdk-menu-close" id="sdkMenuClose">×</button>
+    </div>
+    <div class="sdk-menu-section">
+      <div class="sdk-menu-label">Difficulty</div>
+      <select id="sdkDiffSelect">
+        <option value="Beginner">Beginner</option>
+        <option value="Easy">Easy</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Hard">Hard</option>
+        <option value="Expert">Expert</option>
+      </select>
+      <button class="sdk-menu-btn" id="sdkNewGame">New Puzzle</button>
+      <button class="sdk-menu-btn" id="sdkRestart">Restart</button>
+    </div>
+    <div class="sdk-menu-section">
+      <div class="sdk-menu-label">Options</div>
+      <button class="sdk-menu-btn" id="sdkAutoClean">Auto-Clean Notes: ON</button>
+      <button class="sdk-menu-btn" id="sdkHighlight">Highlighting: ON</button>
+      <button class="sdk-menu-btn" id="sdkConflicts">Show Conflicts: ON</button>
+    </div>
+  </div>
+
+  <div class="sdk-top-bar">
+    <button class="sdk-icon-btn" id="sdkMenuBtn">☰</button>
+    <div style="display:flex;gap:12px">
+      <button class="sdk-icon-btn" id="sdkUndo">↩</button>
+      <button class="sdk-icon-btn" id="sdkCheck">✓</button>
+    </div>
+  </div>
+
+  <div class="sdk-grid" id="sdkGrid"></div>
+
+  <div class="sdk-actions">
+    <button class="sdk-action-btn" id="sdkNoteBtn">Notes</button>
+    <button class="sdk-action-btn" id="sdkClearNotes">Clear Notes</button>
+  </div>
+
+  <div class="sdk-numpad" id="sdkNumpad"></div>
+
+  <div class="sdk-status">
+    <span id="sdkStatusLeft"></span>
+    <span id="sdkStatusCenter"></span>
+    <span id="sdkStatusRight"></span>
+  </div>
+</div>
+
+<!-- Era completion banner -->
+<div class="era-banner" id="eraBanner">
+  <div class="era-banner-icon">◆</div>
+  <div class="era-banner-title" id="eraBannerTitle">Era I Complete</div>
+  <div class="era-banner-sub" id="eraBannerSub">Foundations mastered</div>
+</div>
+
+<!-- ════════ BOTTOM TAB BAR ════════ -->
+<nav class="tab-bar">
+  <div class="tab-slider-pill" id="tabSlider"></div>
+  <button class="tab active" data-view="viewTree" data-idx="0">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5" /></svg>
+    Tree
+  </button>
+  <button class="tab" data-view="viewList" data-idx="1">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" /></svg>
+    Glossary
+  </button>
+  <button class="tab" data-view="viewBooks" data-idx="2">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>
+    Books
+  </button>
+  <button class="tab" data-view="viewSudoku" data-idx="3">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25a2.25 2.25 0 0 1-2.25-2.25v-2.25Z" /></svg>
+    Sudoku
+  </button>
+</nav>
+
+<script>
+// ═══════════ DATA ═══════════
+const DATA = [
+  { id:"samatha", term:"Samatha", simple:"learning to pay attention on purpose", brief:"Calm abiding", category:"Foundation", color:"var(--cat-foundation)", buildsOn:[], leadsTo:["jhana","metacognitive-awareness","tummo"], passage:"Next time you sit, pick one thing — your breath, a sound, anything. When your mind leaves, notice that it left, and come back. That's it. The whole thing is in the coming back. You're not failing when you wander. You're succeeding when you notice.", definition:"The practice of training sustained attention by holding focus on a single object — typically the breath, but it can be a sound, a visual point, a body sensation, or even a mental image. You pick one thing and stay with it. When the mind wanders (and it will, constantly at first), you notice the wandering and gently return. That cycle — focus, drift, notice, return — is the entire practice. The returning is the rep. Over weeks and months, the gaps between wandering get longer. The mind settles into a quality the traditions call \"calm abiding\" — not a blank emptiness but a stable, alert stillness where attention rests without effort. This isn't the end goal but it's the foundation everything else is built on. Without the ability to hold attention steady, insight practices won't have enough resolution to show you anything useful, absorption states won't be accessible, and nondual recognition will remain intellectual rather than experiential. Most traditions agree: start here.", analogy:"<strong>Think of it as:</strong> Training a puppy to sit. At first it bolts constantly. You don't punish it — you just patiently bring it back. Eventually it stays on its own." },
+  { id:"vipassana", term:"Vipassana", simple:"seeing how your mind actually works", brief:"Insight practice", category:"Foundation", color:"var(--cat-foundation)", buildsOn:["metacognitive-awareness"], leadsTo:["a-and-p","fabrication","states-vs-traits"], passage:"Try this: for sixty seconds, watch your experience like a scientist. Don't try to feel anything special. Just notice — a sound appears, it fades. A thought shows up, it dissolves. An itch comes, it goes. Nothing you notice stays the same for even five seconds. That constant motion isn't a problem. It's the actual nature of experience.", definition:"Where samatha trains you to hold attention steady, vipassana uses that steadied attention to examine the nature of experience itself. Instead of concentrating on one object, you open your awareness and observe whatever arises — sensations, thoughts, emotions, sounds — with careful, non-reactive precision. What you start to see is that every experience has three characteristics: it arises and passes away (impermanence), it can't deliver lasting satisfaction (unsatisfactoriness), and it doesn't contain a fixed self (not-self). These aren't philosophical claims — they're things you can verify directly by watching closely enough. The practice typically moves through recognizable stages as your perception sharpens. Early on, you notice gross sensations and obvious thoughts. Over time, you start to perceive finer and finer resolution — the micro-moments of experience flickering in and out, the gaps between thoughts, the way a solid-seeming emotion is actually a rapidly changing cluster of sensations. Most important, you start to notice that the \"self\" watching all of this is also a construction — a process, not a thing. That recognition is where vipassana begins to get genuinely transformative, and also where it can get destabilizing if you're not prepared.", analogy:"<strong>Think of it as:</strong> Watching a movie frame by frame instead of being swept along by the story. You see the machinery of experience rather than just the content." },
+  { id:"metacognitive-awareness", term:"Metacognitive Awareness", simple:"catching yourself thinking", brief:"Noticing the mind's activity", category:"Foundation", color:"var(--cat-foundation)", buildsOn:["samatha"], leadsTo:["vipassana","self-inquiry"], passage:"Right now, as you read this, there's a voice in your head saying these words. Can you hear it? Good — that noticing is metacognitive awareness. You were already thinking. You just didn't know you were thinking. The gap between being lost in thought and knowing you're thinking is the most important gap in all of meditation.", definition:"The ability to be aware of what your mind is doing while it's doing it — thinking about thinking, noticing noticing. Before any meditation training, most people live fused with their mental activity. A thought arises and you are that thought, carried along by it without any awareness that you're thinking. You're angry and you don't know you're angry — you're just in it. Metacognitive awareness is the moment you step back and notice: \"Oh, I'm angry right now.\" Or: \"I've been planning my weekend for the last five minutes instead of paying attention.\" That gap — between being lost in a mental process and knowing the mental process is happening — is arguably the single most important skill in all of contemplative practice. Everything else depends on it. Insight practice requires it because you can't observe the nature of experience if you're constantly swept away by content. Concentration practice develops it because every time you notice you've wandered, that noticing IS metacognitive awareness in action. Self-inquiry uses it by turning awareness back on itself. The skill gets more refined over time. Early on, you catch yourself after you've been lost for minutes. Later, you catch thoughts as they form. Eventually, the gap between thinking and knowing you're thinking shrinks to nearly zero — which starts to feel less like monitoring and more like a continuous, clear awareness that includes everything.", analogy:"<strong>Think of it as:</strong> The difference between being in a dream and becoming lucid within the dream. Same dream, but now you know it's happening." },
+  { id:"jhana", term:"Jhana", simple:"getting so focused everything else disappears", brief:"Absorption states", category:"Concentration", color:"var(--cat-concentration)", buildsOn:["samatha"], leadsTo:["nondual-awareness","non-meditation"], passage:"You've probably already had a taste of this without knowing it. Any time you were so absorbed in something — music, a game, a conversation — that you lost track of time and forgot yourself? That's the neighborhood. Jhana is what happens when you can go there on purpose, sit down, and stay.", definition:"When concentration gets deep enough, the mind enters states of absorption where ordinary sensory experience fades and is replaced by progressively refined qualities of awareness. There are traditionally eight jhanas, and the progression tells you something important about how the mind works. The first jhana features directed attention plus a physical rapture — energy, tingling, waves of pleasure. In the second, the effort of directing attention drops away and you're just in the rapture. In the third, the rapture calms into a deep contentment. In the fourth, even contentment settles into pure, balanced equanimity. The next four — called the \"formless\" jhanas — move through increasingly abstract territory: infinite space, infinite consciousness, nothingness, and a state so refined it's called \"neither perception nor non-perception.\" What actually happens when you enter a jhana: your sense of the body can diminish or disappear, your inner monologue goes quiet, time distorts, and the sense of a separate self doing the meditation weakens or drops away entirely. The quality of each state is distinct and recognizable once you've been there. There's an ongoing debate in the community about how deep jhana needs to be — the \"lite\" school (Brasington, Leigh) says you can reach recognizable jhana states with moderate concentration, while the \"hard\" school (Pa Auk Sayadaw) requires full absorption where external sensation ceases entirely. Both approaches work. The key insight is that jhana isn't the goal — it's a tool. The deep concentration and the temporary suspension of the self-sense give the mind a kind of flexibility and clarity that makes insight practice dramatically more effective.", analogy:"<strong>Think of it as:</strong> Tuning a radio. As you get more precise, the static drops away layer by layer until only clear, pure signal remains." },
+  { id:"tummo", term:"Tummo", simple:"using your mind to heat up your body", brief:"Inner heat practice", category:"Concentration", color:"var(--cat-concentration)", buildsOn:["samatha","jhana"], leadsTo:["nondual-awareness"], passage:"This one should make you pause. Monks in thin cotton sheets, sitting in freezing temperatures, drying wet towels on their bare skin with body heat generated by visualization alone. Measured with thermometers by scientists. Your mind can do things your current understanding says it shouldn't be able to. What else is it capable of that you haven't tried?", definition:"A Tibetan Buddhist practice that works through what's called the \"subtle body\" — a system of energy channels and centers that may or may not correspond to physical anatomy, but that produce real, measurable effects when engaged through visualization and breath work. The basic technique involves visualizing a tiny flame or seed syllable at the navel center, then using specific breathing patterns to intensify it, sending heat up through the central channel of the body. The physical heat generation is documented — Herbert Benson's Harvard studies in the 1980s measured Tibetan monks raising their finger and toe temperatures by 6-7°C, enough to dry wet sheets wrapped around their bodies in freezing conditions. But the temperature is a side effect, not the point. The actual purpose of tummo is to produce a state of nonconceptual awareness by using the body's energy systems to burn through the thinking mind. As the visualization intensifies and the inner heat builds, conceptual thought drops away and what remains is a vivid, lucid clarity. This is one of the Six Yogas of Naropa — a set of advanced Tibetan practices that use the body as the primary vehicle for awakening rather than trying to work with the mind directly through analysis or observation.", analogy:"<strong>Think of it as:</strong> Using the body as a furnace to burn away conceptual thinking. The heat is the visible byproduct — the real product is the clarity underneath." },
+  { id:"a-and-p", term:"Arising & Passing Away", simple:"the big 'whoa' moment that changes everything", brief:"The A&P event", category:"Insight Stages", color:"var(--cat-insight)", buildsOn:["vipassana"], leadsTo:["dark-night","states-vs-traits"], passage:"If you've ever had a moment in practice where everything suddenly got vivid and electric — lights behind your eyes, energy surging, a feeling like \"this is it, I've figured it out\" — that was probably the A&P. The important thing to know: it feels like the finish line but it's actually the starting gate. And the territory on the other side includes some rough terrain. Don't stop here.", definition:"A major threshold in insight practice where the meditator's perceptual resolution suddenly sharpens and the arising and passing of phenomena becomes vividly obvious. This typically arrives as a dramatic event — people report bright lights behind their eyes, waves of rapture and energy, involuntary body movements, a feeling of profound understanding, and sometimes a sense that they can perceive reality at a level they never have before. The experience can be so powerful that practitioners routinely mistake it for full awakening. It feels like the destination. It isn't. The A&P is actually the point where the insight path gets real. Before it, you were building skills. After it, those skills start showing you things about the nature of experience that can be unsettling — the constant dissolution of everything, the absence of a solid self, the groundlessness of experience. This is the gateway to what the tradition calls the \"dukkha nanas\" or \"dark night\" stages. One of the most important things about the A&P is that it can happen off the cushion — during intense exercise, psychedelic experiences, extreme emotional states, or even spontaneously. Many people cross this threshold without knowing what happened and end up in dark night territory without any framework for understanding it. Daniel Ingram estimates this is far more common than most teachers acknowledge. If you've crossed the A&P, you've essentially committed to the insight path — not because you can't go back, but because the perceptual changes it initiates tend to continue developing whether you meditate or not.", analogy:"<strong>Think of it as:</strong> Reaching a ridge on a hike and seeing the actual mountain for the first time. Exhilarating, but the real climb is ahead." },
+  { id:"dark-night", term:"Dark Night", simple:"the rough patch after the breakthrough", brief:"Dukkha ñāṇas", category:"Insight Stages", color:"var(--cat-insight)", buildsOn:["a-and-p"], leadsTo:["spiritual-bypassing","wake-grow-clean"], passage:"If practice has ever left you feeling worse instead of better — more anxious, more hollow, less sure about everything — you might be here. That doesn't mean something went wrong. It means the practice is working, and what it's showing you is hard to look at. The most important thing: don't practice alone through this part. Find a teacher who knows this territory. And know that the way out is forward.", definition:"After the fireworks of the A&P, the insight path moves through a series of stages that the Theravada tradition calls the \"dukkha nanas\" — the insight knowledges of suffering. Each has a distinct character. Dissolution: things that felt solid start to feel like they're falling apart. Your sense of self, your perception of the world — the edges blur and nothing quite holds together. Fear: an existential dread that isn't about anything specific. Misery: a heavy, pervasive sadness. Disgust: a turning away from experience, a feeling that everything is somehow contaminated. Desire for Deliverance: a desperate wish for this to end. Re-observation: the hardest stage, where everything intensifies — the difficulty, the confusion, the sense that you're stuck. This isn't depression, though it can look identical from the outside and even to the person experiencing it. The difference is that the dark night is caused by genuinely seeing the impermanent, unsatisfying, and selfless nature of experience with a clarity that your psyche isn't yet equipped to integrate. The appropriate response is not to stop practicing — that can leave you stuck in these stages for months or years. The way through is continued, skillful practice, ideally with a teacher who has navigated this territory themselves and can tell you what's happening. The most dangerous thing about the dark night is that most meditation teachers either don't know about it, don't believe in it, or won't talk about it openly. This leaves practitioners alone with destabilizing experiences and no framework for understanding them. If you're here, find someone who takes this seriously.", analogy:"<strong>Think of it as:</strong> Turning the lights on in a room you've been living in for years. The mess was always there — you can just see it now." },
+  { id:"states-vs-traits", term:"States vs. Traits", simple:"visiting somewhere vs. actually living there", brief:"Temporary vs. permanent", category:"Insight Stages", color:"var(--cat-insight)", buildsOn:["a-and-p","vipassana"], leadsTo:["gamma-synchrony","inverted-u"], passage:"Ask yourself honestly: am I practicing to feel good, or am I practicing to change? A great meditation session that leaves no trace by lunchtime is a state. Being less reactive in traffic three years into practice without even trying — that's a trait. States are fireworks. Traits are the sunrise.", definition:"One of the most important distinctions in understanding what meditation actually does. A state is a temporary experience — the bliss of a good sit, a moment of profound clarity, a feeling of oneness that arises during practice and fades afterward. A trait is a lasting change in how your brain and mind function at baseline, whether you're meditating or not. The entire purpose of sustained practice is converting temporary states into permanent traits. The neuroscience on this is clear: after a single meditation session, stress hormones drop and attention improves, but the effects wear off within hours. After thousands of hours of practice, the brain's structure and function change measurably — the default mode network quiets at baseline, cortical thickness increases in attention-related areas, and emotional reactivity decreases in ways that persist all day, every day, whether the person has meditated recently or not. The trap is that states feel more dramatic than traits. A powerful jhana experience or a glimpse of nondual awareness is unmistakable — it's like seeing fireworks. But a gradual reduction in baseline anxiety that accumulates over three years of practice is nearly invisible to the person experiencing it. Others might notice before you do. The chase for peak experiences — always wanting to reproduce that one amazing sit — is one of the most common dead ends in meditation. It prioritizes the spectacular over the truly transformative.", analogy:"<strong>Think of it as:</strong> The difference between visiting a country and actually living there. A vacation doesn't make you a local." },
+  { id:"fabrication", term:"Fabrication", simple:"your brain is making stuff up nonstop", brief:"Mind's construction of experience", category:"Insight Stages", color:"var(--cat-insight)", buildsOn:["vipassana"], leadsTo:["ways-of-looking","nondual-awareness"], passage:"Right now your brain is building a world for you — assembling sounds into a room, sensations into a body, memories into a person called \"you.\" None of it is false. But none of it is as solid and fixed as it feels. When you start to see the construction happening in real time, nothing breaks. Things just become lighter, more transparent, more workable.", definition:"The mind's constant, mostly invisible activity of constructing every aspect of your experience — your sense of being a self, your perception of time flowing, your feeling that there's a solid world \"out there\" that exists independently of your observation. Fabrication isn't a flaw or an error. It's how minds work. The insight isn't that fabrication is bad — it's that you can learn to see it happening in real time, and that changes everything. Rob Burbea's contribution was mapping what he called the \"fabrication spectrum\" — the recognition that experience can be more or less fabricated depending on how you're attending to it. When you're caught up in a story about yourself, fabrication is heavy: there's a solid self, a solid world, solid problems. As you bring meditative attention to experience, fabrication decreases: the sense of self gets lighter, phenomena become more fluid and transparent, the boundaries between inside and outside soften. At very low levels of fabrication, experience becomes remarkably simple and open. This is what Buddhist traditions point at with the word \"emptiness\" — which doesn't mean nothing exists, but that nothing exists in the fixed, independent, solid way it normally appears to. Things are real, but they're also contingent, dependent, and constructed. Seeing this directly isn't nihilistic — most practitioners report it feels like a tremendous relief. The world doesn't break when you see how it's built. It becomes more spacious, more workable, and oddly more vivid.", analogy:"<strong>Think of it as:</strong> Watching a magician's trick after you know how it's done. The trick still happens — it just doesn't fool you anymore." },
+  { id:"nondual-awareness", term:"Nondual Awareness", simple:"the 'watcher' and the 'watched' are the same thing", brief:"Subject-object collapse", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["jhana","fabrication","metacognitive-awareness"], leadsTo:["rigpa","self-inquiry","kensho","shikantaza"], passage:"Try this right now: look at something in front of you. Now notice that you're seeing it. Now ask — where does the seeing end and the thing begin? You assume there's a \"you\" on this side and a \"world\" on that side. But can you actually find the boundary? Nondual awareness is what's left when you stop assuming the line is there and actually look for it.", definition:"The most fundamental perceptual shift in contemplative practice: the recognition that the apparent boundary between the one who is aware and the thing being perceived was never actually there. In ordinary experience, there's a constant, unquestioned sense that \"I\" am in here (behind the eyes, inside the head) looking out at a world \"out there.\" This subject-object structure feels so basic that most people never think to question it. But when you look carefully — really carefully, with trained attention — you can't actually find the boundary. Where does the seeing end and the seen begin? Where does the hearing end and the sound begin? The boundary that felt so obvious dissolves under investigation, and what remains is a single field of awareness in which everything — thoughts, sensations, perceptions, the sense of self — simply appears. This isn't a mystical state you achieve through effort. It's more like noticing something that was always the case but was obscured by a habitual assumption. The reason it matters for the path is that the subject-object structure is the deepest layer of fabrication. The sense that there's a \"me\" in here watching experience is itself a construction, and when it's seen through — even briefly — the result is a profound openness and freedom. The separate self that seemed to need protecting, defending, and satisfying is revealed as a process rather than a thing. Every major contemplative tradition has a name for this recognition and considers it a turning point: Dzogchen calls it rigpa, Zen calls it kensho, Advaita calls it self-realization. The approaches differ but they're pointing at the same structural shift in perception.", analogy:"<strong>Think of it as:</strong> Searching everywhere for your glasses, only to realize they're on your face. The awareness you're looking for is the awareness you're looking with." },
+  { id:"rigpa", term:"Rigpa", simple:"the awareness that was always already on", brief:"Innate awake awareness", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["nondual-awareness"], leadsTo:["trekcho","mahamudra"], passage:"Think of the last time you woke up from a deep sleep. In that very first instant — before you remembered your name, before you knew what day it was — there was awareness. Just open, clear, awake. No content yet. That bare wakefulness didn't need to be created. It was already on. Everything else was added on top of it.", definition:"The Dzogchen term for the natural, innate wakefulness of mind — awareness in its most basic, unconditioned state, prior to any fabrication, effort, or conceptual overlay. Rigpa isn't something you produce through practice. It's something you recognize as having been present all along, like the sky that was always behind the clouds. The Dzogchen view is distinctive: it holds that your true nature is already awake, already clear, already luminous. You don't need to create this through years of purification or concentration — you need to recognize it. This is why Dzogchen is sometimes called the \"direct path.\" The challenge is that rigpa is so close, so immediate, so ordinary that the mind keeps looking past it for something more exotic. A Dzogchen teacher's job is to \"point out\" rigpa directly — not to give you a technique that will eventually produce an experience, but to help you notice what's already here right now. Traditionally this was done in a direct encounter called a \"pointing-out instruction\" where the teacher creates conditions for the student to recognize their own awareness. Once recognized, the practice becomes about stabilizing that recognition — learning to rest in rigpa for longer and longer periods without getting distracted by the content of experience. The content (thoughts, emotions, sensations) isn't rejected — it's seen as the natural display of awareness itself, like waves that are never separate from the ocean.", analogy:"<strong>Think of it as:</strong> The sky behind the clouds. The clouds (thoughts, emotions) come and go, but the sky was never disturbed." },
+  { id:"self-inquiry", term:"Self-Inquiry", simple:"looking for who's looking", brief:"\"Who am I?\"", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["metacognitive-awareness","nondual-awareness"], leadsTo:["koan","effortless-awareness"], passage:"Right now, you're aware. That's obvious. But what is the thing that's aware? Point to it. Describe it. Give it a shape. You can point to your head, but that's a body part, not awareness. You can say \"my mind,\" but that's a word, not a direct experience. Keep looking. The fact that you can't find it isn't a problem — it's the whole point.", definition:"A method pioneered by the Indian sage Ramana Maharshi that works by persistently turning attention back toward the subject — the one who is aware. When a thought arises, instead of engaging with its content, you ask: \"Who is thinking this?\" or \"Who is aware of this?\" Then you look for the one who's asking. You won't find anyone. That's not a failure — that's the insight. The method is deceptively simple. You're not meant to answer \"Who am I?\" with a philosophical statement. You're meant to look, directly, for the experiencer — and discover that when you search for the subject, it can't be located as an object. The looker can't become the looked-at. What remains when the search comes up empty isn't a blank void — it's an open, aware presence that has no boundaries, no center, and no characteristics you can pin down. Self-inquiry works differently from vipassana. Where vipassana sharpens perception of objects (sensations, thoughts, phenomena) to reveal their impermanent and selfless nature, self-inquiry goes straight to the root by questioning the reality of the perceiver. Some people find this approach more natural, more direct. Others find it frustrating because there's no clear technique to \"do\" — the whole point is to stop doing and look. Ramana's advice to students who struggled was always the same: go back to the source. Every time a thought carries you away, ask \"To whom did this thought come?\" and return to looking for the looker. Over time, the attention naturally settles at its source, and what was always there becomes obvious.", analogy:"<strong>Think of it as:</strong> Trying to see your own eye directly, without a mirror. The looker can never become the looked-at. What remains is the answer." },
+  { id:"koan", term:"Koan", simple:"a riddle designed to break your thinking", brief:"Paradoxical Zen inquiry", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["self-inquiry","nondual-awareness"], leadsTo:["kensho"], passage:"What is the sound of one hand? Don't think about it. That's the point — you can't think your way to the answer. Your thinking mind is exactly what's in the way. A koan is a teacher handing you a question shaped like a key, but the lock it opens isn't intellectual. It's the moment your mind gives up trying to figure it out and something else takes over.", definition:"A paradoxical question or story used in Rinzai Zen as a tool for provoking direct insight. The most famous — \"What is the sound of one hand?\" or \"What was your original face before your parents were born?\" — are deliberately impossible to answer through logic or analysis. That impossibility is the mechanism. In formal koan practice, the student sits with the question intensively, often for weeks or months, bringing every possible answer to the teacher in private interview (dokusan). The teacher rejects every intellectual response — every clever formulation, every philosophical angle — until the student's conceptual machinery exhausts itself entirely. The \"answer\" isn't a statement. It's a shift in how the student perceives. When the thinking mind gives up trying to solve the unsolvable, something else can come forward — a direct, non-conceptual knowing that the tradition calls prajna. The student doesn't figure out the koan. The koan breaks the student's reliance on figuring. This is why koans work best under pressure. The frustration, the repeated rejection, the impossibility of escape through cleverness — all of it serves to build the internal pressure that eventually cracks the conceptual container. Different koans work at different levels. Some provoke initial awakening (kensho). Others refine and deepen it. A complete Rinzai training might involve working through hundreds of koans over decades, each one designed to illuminate a different facet of awakened understanding.", analogy:"<strong>Think of it as:</strong> A finger trap — the harder you try to think your way out, the tighter it grips. You escape by relaxing, not by pulling." },
+  { id:"kensho", term:"Kensho", simple:"your first real peek behind the curtain", brief:"Initial nature-seeing", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["nondual-awareness","koan"], leadsTo:["shikantaza","mahamudra"], passage:"The first time it happens, you might laugh. Or cry. Or just go very quiet. Because you realize that what you were looking for was never missing. It was the looking itself. But don't set up camp here. One peek through the window doesn't mean you live in the house. Teachers describe deepening this over years, even decades. The first glimpse is the invitation, not the destination.", definition:"The Zen term for a direct glimpse of one's true nature — a moment where the subject-object structure of perception drops away and what remains is recognized as what you always were. The word literally means \"seeing one's nature.\" Kensho can arrive as a thunderclap — sudden, dramatic, unmistakable — or as a quiet opening that you almost miss. It can happen during intense koan practice, during sitting meditation, while walking, or in the middle of a completely ordinary moment. What unites all kensho experiences is the recognition that awareness was never contained in a self, that the separation between you and the world was a construction, and that what you've been looking for was never missing — it was the looking itself. The most common mistake is treating kensho as the finish line. Zen masters are emphatic that it isn't. The initial glimpse is called \"seeing the ox\" in the famous ox-herding pictures — there are nine more pictures after that. The insight needs to be stabilized, deepened, integrated into daily life, and eventually matured to the point where it's no longer a special experience you had once but the ordinary texture of every moment. Some traditions describe this as a process of having many kensho experiences of increasing depth and stability over a lifetime. The first one cracks the shell. The subsequent ones reveal what's inside in ever greater detail.", analogy:"<strong>Think of it as:</strong> The first time you see the ocean. Unforgettable and transformative — but swimming in it daily is a very different thing." },
+  { id:"trekcho", term:"Trekchö", simple:"relaxing into what's already there", brief:"\"Cutting through\"", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["rigpa"], leadsTo:["non-meditation","effortless-awareness"], passage:"Imagine two people sitting in the same room doing nothing. One is waiting for something to happen. The other knows that this — exactly this, right now — is the complete picture. The instructions are almost comically simple: rest in awareness. Don't alter anything. The hard part isn't the technique. It's trusting that doing less is doing more.", definition:"The primary practice of Dzogchen, meaning \"cutting through\" — though what's being cut through is effort, fabrication, and the tendency to alter experience rather than resting in it as it is. Once rigpa has been recognized (usually through a pointing-out instruction from a qualified teacher), Trekchö is the practice of sustaining that recognition. The instructions sound almost absurdly simple: rest in the natural state. Don't modify anything. Don't meditate on anything. Don't follow thoughts and don't push them away. Just be. The crucial difference between Trekchö and basic relaxation or \"just sitting without paying attention\" is the view. In Trekchö, you're not spacing out — you're resting in a direct recognition that awareness is already awake, already clear, already complete. This recognition is what the teacher pointed out. Without it, Trekchö looks identical to doing nothing. With it, doing nothing becomes the most radical form of practice. The challenge is that the thinking mind constantly tries to help. It tries to \"do\" Trekchö, to maintain the recognition through effort, to check whether it's working. Every one of these moves is exactly what obscures the natural state. The practice is a continuous letting go — not of awareness, but of the impulse to manage awareness. Teachers describe it as learning to trust that the ground is already there and you don't need to hold yourself up. For practitioners who come from a background of effortful concentration practice, this can be the hardest pivot in the entire path.", analogy:"<strong>Think of it as:</strong> Two people in identical chairs looking at the same view. One is waiting for the show to start. The other realizes it's been playing the whole time." },
+  { id:"shikantaza", term:"Shikantaza", simple:"just sitting — that's the whole thing", brief:"\"Just sitting\"", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["nondual-awareness","kensho"], leadsTo:["non-meditation","ordinary-mind"], passage:"No technique. No goal. No special state you're trying to reach. Just sit. That's the entire instruction. The radical part: this isn't the beginner's version of something harder. This is the advanced version. The claim is that your sitting — right now, exactly as you are — is itself the full expression of what every tradition is pointing at. What if they're right?", definition:"The Soto Zen practice taught by Dogen, meaning literally \"just sitting\" — and meaning it completely. No concentration object. No technique. No goal. No attempt to reach a special state. You sit upright, you let experience be exactly as it is, and you don't do anything else. This is not the beginner's version of a more advanced practice. According to Dogen, this IS the advanced practice. The radical claim at the heart of shikantaza is that practice and enlightenment are not separate. You don't sit in order to become enlightened at some future point. The sitting itself, done with full presence and no grasping, IS the expression of awakened awareness. Enlightenment isn't something you achieve through sitting — it's something sitting already is. This sounds like a philosophical trick, and for someone without the background to hear it correctly, it can be. Shikantaza is typically practiced after some experience with kensho — after you've already glimpsed the nature of mind and no longer need a technique to get there. Without that foundation, \"just sitting\" easily degrades into daydreaming or dull spacing out. With it, shikantaza becomes a practice of radical trust: the trust that awareness is already complete, that nothing needs to be added or removed, and that ordinary mind — exactly as it is, right now, including the boredom and the leg pain — is the full expression of what every tradition is pointing toward.", analogy:"<strong>Think of it as:</strong> Instead of searching a room for the light switch, realizing you ARE the light." },
+  { id:"mahamudra", term:"Mahamudra", simple:"four steps from trying hard to not trying at all", brief:"Four progressive yogas", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["rigpa","kensho"], leadsTo:["non-meditation","ordinary-mind"], passage:"First you learn to focus. Then you learn to let go of the focusing. Then you see that everything has the same taste — good sits, bad sits, meditation, dishes, traffic. Then even the idea that you're \"meditating\" falls away. Six words cover the whole thing: don't recall, don't imagine, don't think, don't examine, don't control, rest.", definition:"A Tibetan Buddhist path that maps the journey from effortful concentration to effortless awakening through four distinct stages called \"yogas.\" The first, one-pointedness, is about developing stable, clear concentration — similar to samatha but with an emphasis on recognizing the nature of mind even in this early stage. The second, simplicity, is where the practitioner begins to see through the elaborations of conceptual mind and experience becomes more direct, more transparent. The third, one taste, is a profound equalization — the recognition that all experiences, pleasant and unpleasant, meditation and daily life, have the same fundamental nature. The boundary between \"practice\" and \"not practice\" dissolves. Everything has the same \"taste\" of awareness. The fourth stage is non-meditation, where even the idea that you're doing something called \"meditating\" falls away. Practice becomes as natural and continuous as breathing. Tilopa's six words to his student Naropa capture the essence of the entire path: \"Don't recall. Don't imagine. Don't think. Don't examine. Don't control. Rest.\" Each word is a progressive letting go — of the past, of the future, of analysis, of monitoring, of effort — until only resting remains. What makes Mahamudra distinctive is its gradualism within a nondual framework. Unlike Dzogchen, which starts from the recognition of the natural state and stays there, Mahamudra acknowledges that most practitioners need a progression from effort to effortlessness. It meets you where you are and walks you forward.", analogy:"<strong>Think of it as:</strong> Learning a language so thoroughly you forget you're translating." },
+  { id:"ways-of-looking", term:"Ways of Looking", simple:"changing the lens changes what you see", brief:"Burbea's fabrication spectrum", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["fabrication","vipassana"], leadsTo:["effortless-awareness","nondual-awareness"], passage:"Think about how different the world looks when you're angry versus when you're in love. Same world, completely different experience. Now extend that insight: every moment of perception is being shaped by how you're looking. There's no view from nowhere. Once you really get this, something interesting happens — you stop trying to find \"the truth\" and start learning to choose how you see. That's freedom.", definition:"A framework developed by Rob Burbea that takes the insight of fabrication and turns it into a creative, liberating practice. The core idea: what you perceive depends on how you're looking, and no single way of looking reveals \"the truth\" of experience. Every mode of attention — whether it's anxious, relaxed, concentrated, scattered, analytical, receptive — constructs a different version of experience. None is more \"real\" than any other. Traditional insight practice tends to privilege one way of looking — precise, noting-style observation — and treats what it reveals (impermanence, not-self) as the ultimate truth. Burbea's contribution was recognizing that even the insights of impermanence and emptiness are produced by a particular way of looking. They're real insights, but they're not the final word. What this means in practice: instead of having one meditation technique that you apply uniformly, you develop a toolkit of different ways of attending to experience and learn to move fluidly between them. You might look at experience through the lens of impermanence, then through the lens of dependent origination, then through the lens of emptiness, then through an attitude of devotion or beauty. Each reveals something different. Each fabricates differently. The freedom comes from recognizing that since all ways of looking are fabricated, you're not trapped in any single one. You can choose. This is a subtler, more playful relationship with practice than most traditions offer, and it naturally leads toward both nondual awareness and effortless awareness — because the one who chooses how to look eventually recognizes that the chooser is also part of the fabrication.", analogy:"<strong>Think of it as:</strong> Realizing every pair of glasses changes what you see. There are no \"naked eyes\" — but knowing this lets you choose your lenses consciously." },
+  { id:"non-meditation", term:"Non-Meditation", simple:"when you don't need to 'do' meditation anymore", brief:"Beyond practice itself", category:"Nondual Recognition", color:"var(--cat-nondual)", buildsOn:["mahamudra","shikantaza","trekcho"], leadsTo:["effortless-awareness","ordinary-mind"], passage:"Here's the paradox: you need to practice for years to reach the point where you no longer need to practice. The effort builds real skills — stability, clarity, insight. But at some point, the effort itself becomes the last obstacle. It's like training wheels: absolutely necessary until they're not. The question you'll sit with eventually: what happens when you stop doing anything at all?", definition:"The endpoint of multiple contemplative paths — the fourth yoga of Mahamudra, the full stabilization of Trekchö, the matured expression of shikantaza — where the distinction between \"meditating\" and \"not meditating\" dissolves entirely. Awareness maintains itself without any effort, technique, or intention to practice. This isn't laziness, spiritual bypassing, or just deciding you're done. It's the natural result of skills that have become so deeply integrated they no longer require conscious maintenance — the way a master musician no longer thinks about finger placement, or a native speaker no longer thinks about grammar. The paradox at the heart of non-meditation is that it's only accessible through extensive meditation. You can't skip to it. The years of effortful practice build the actual neurological and psychological infrastructure — stable attention, clear awareness, reduced reactivity, insight into the constructed nature of self — that eventually operates on its own. At some point, the meditator notices that awareness is already doing everything the practice was designed to produce. The techniques become redundant. Letting go of them isn't giving up — it's graduation. What remains is a continuous, natural awareness that doesn't fluctuate with the decision to sit or not sit, that doesn't require a cushion or a timer, and that includes all of life — thinking, working, eating, arguing, sleeping — within its scope.", analogy:"<strong>Think of it as:</strong> Riding a bike. At first you think about every motion. At mastery, you just ride — and if you try to think about it, you wobble." },
+  { id:"dmn", term:"Default Mode Network", simple:"the part of your brain that won't stop talking about you", brief:"The brain's \"story of me\"", category:"Neuroscience", color:"var(--cat-science)", buildsOn:[], leadsTo:["gamma-synchrony","inverted-u"], passage:"Close your eyes for ten seconds and try to think about nothing. What happened? Your brain immediately started narrating — planning, remembering, worrying, fantasizing. That's your default mode network, and it runs roughly half your waking life. The interesting part: it's loudest when you're unhappy. Meditation is one of the only things shown to reliably turn down its volume.", definition:"A network of brain regions — primarily the medial prefrontal cortex, posterior cingulate cortex, and angular gyrus — that activates most strongly when you're not focused on any external task. When your mind wanders, daydreams, ruminates about the past, worries about the future, or constructs narratives about yourself, the DMN is running the show. Brain imaging studies show it's active roughly 50% of waking life. The DMN is essentially the brain's \"self-referential storytelling\" system. It maintains the narrative of who you are, what happened to you, what might happen next, and what other people think of you. This isn't inherently bad — you need a functional sense of self to navigate the world. The problem is that DMN hyperactivity correlates strongly with depression, anxiety, addiction, and general unhappiness. The more your brain talks to you about you, the worse you tend to feel. Meditation directly and measurably reduces DMN activity. Short-term practitioners show decreased DMN activity during meditation sessions. Long-term practitioners — those with thousands of hours — show decreased DMN activity at baseline, meaning their brains are literally quieter even when they're not meditating. The brain's self-narrative machinery has been permanently downregulated. This is one of the clearest and most well-replicated findings in meditation neuroscience, and it maps perfectly onto the subjective reports: experienced meditators consistently describe a quieter mind, less rumination, and a reduced sense of being trapped in their own story.", analogy:"<strong>Think of it as:</strong> A radio station that plays the \"all about me\" channel 24/7. Meditation turns the volume down — first during practice, eventually all the time." },
+  { id:"gamma-synchrony", term:"Gamma Synchrony", simple:"the whole brain lighting up in sync", brief:"25× baseline elevation", category:"Neuroscience", color:"var(--cat-science)", buildsOn:["dmn","states-vs-traits"], leadsTo:["inverted-u"], passage:"Here's a number to sit with: twenty-five. That's how many times more synchronized the brainwaves of expert meditators were compared to people who'd never practiced. And the really striking part — their brains looked like that before they even started meditating. It wasn't a state they turned on. It was who they had become.", definition:"In 2004, Richard Davidson's lab at the University of Wisconsin published a landmark study on Tibetan Buddhist monks with an average of 34,000 hours of meditation practice. When the monks meditated on compassion, their brains produced gamma-band oscillations (25-42 Hz) at levels never before recorded in healthy humans — approximately 25 times the amplitude seen in novice meditators performing the same practice. Gamma waves are associated with large-scale neural coordination — different parts of the brain firing in precise synchrony, which is thought to underlie heightened states of awareness, perceptual clarity, and cognitive integration. But the most significant finding wasn't what happened during meditation. It was what happened before. Even at baseline, before beginning any practice, the monks' brains showed dramatically elevated gamma activity compared to controls. This suggested that decades of practice hadn't just given them the ability to enter special states — it had permanently altered their brain's baseline functioning. The changes were proportional to hours of practice: more meditation, more gamma. This was one of the first pieces of hard neuroscientific evidence that meditation produces lasting trait changes, not just temporary state changes. The monks' brains weren't just different when they meditated. They were different all the time. Their baseline consciousness had shifted in a measurable, physical way.", analogy:"<strong>Think of it as:</strong> An orchestra. Most brains have loosely coordinated musicians. Expert meditators play in perfect synchrony — even during intermission." },
+  { id:"inverted-u", term:"The Inverted U-Curve", simple:"experts try less, not more", brief:"Effort peaks, then drops", category:"Neuroscience", color:"var(--cat-science)", buildsOn:["gamma-synchrony","dmn"], leadsTo:["effortless-awareness","non-meditation"], passage:"This one changes how you understand the whole journey. Intermediate meditators — good ones, with tens of thousands of hours — showed more brain effort than beginners. They were working harder. But the most advanced meditators showed less effort than anyone, including people who'd never meditated at all. Their brains were doing meditation the way your brain does breathing. Mastery isn't more effort. It's no effort.", definition:"One of the most striking findings in meditation neuroscience, documented across multiple studies by Davidson, Goleman, and others. When you plot brain activation against lifetime practice hours, you get a curve shaped like an upside-down U. Beginners (0-1,000 hours) show relatively low brain activation during meditation — they're trying but haven't developed much capacity yet. Intermediate practitioners (~10,000-19,000 hours) show the highest activation — they've built real skill and their brains are working hard to maintain deep states. But the most advanced practitioners (~44,000+ hours) show less activation than either group, sometimes less even than non-meditators. Their brains appear to be doing almost nothing. This maps perfectly onto the subjective reports from multiple contemplative traditions, all of which describe a progression from effort to effortlessness. The meditator strives, builds skills, achieves deeper and more stable states through increasing effort, and then — at some point — the effort itself is recognized as the last obstacle and falls away. What the brain data shows is that this isn't metaphorical. The most expert brains literally use less energy. Meditation has become as automatic and effortless as breathing or walking. The neuroscience effectively validates the concept of non-meditation — the endpoint where practice becomes so natural it's no longer \"practice\" in any meaningful sense. You can't skip to this. The effort phase builds the neural infrastructure. But the destination of all that building is a place where the scaffold comes down.", analogy:"<strong>Think of it as:</strong> Learning to drive. As a student, tense and hyper-focused. As an expert, you drive without thinking about driving." },
+  { id:"spiritual-bypassing", term:"Spiritual Bypassing", simple:"using 'zen' to dodge your real problems", brief:"Avoidance through spirituality", category:"Traps & Warnings", color:"var(--cat-traps)", buildsOn:["dark-night"], leadsTo:["wake-grow-clean"], passage:"Be honest with yourself: is your practice helping you face difficult things, or helping you avoid them? \"Everything is an illusion\" is a useful insight when it loosens your grip on suffering. It's a defense mechanism when you use it to dismiss your partner's feelings. The test is simple — are the people closest to you experiencing you as more present or more distant?", definition:"A term coined by psychologist John Welwood to describe the use of spiritual practice and concepts as a way to avoid facing unresolved psychological issues, emotional wounds, and developmental challenges. It's one of the most common and most insidious traps in contemplative practice, and it can look very different from the outside than it does from inside. Common forms: using meditation to dissociate from difficult emotions rather than feeling them. Invoking \"non-attachment\" to avoid commitment or intimacy. Hiding behind \"everything is empty\" to bypass grief, anger, or legitimate interpersonal conflict. Cultivating a calm, spiritual persona that suppresses rather than integrates the messy, shadow parts of the psyche. Using retreat practice as an escape from the demands of relationship, career, or community. The tricky part is that many of these behaviors look identical to genuine spiritual development from the practitioner's perspective. The meditator who no longer gets angry might be genuinely equanimous — or might have dissociated from anger and pushed it underground where it leaks out in passive-aggressive behavior. The test isn't internal feeling but external impact: are the people closest to you experiencing you as more present, more emotionally available, and more honest? Or are they experiencing a spiritual wall? Spiritual bypassing is especially dangerous after the dark night stages, when practitioners are most motivated to use practice as a refuge from difficult experiences. It's also common in communities where certain emotions (anger, desire, ambition) are implicitly treated as \"unspiritual\" and therefore suppressed rather than understood.", analogy:"<strong>Think of it as:</strong> Using air freshener instead of cleaning the bathroom. Smells better temporarily, but the mess is getting worse." },
+  { id:"wake-grow-clean", term:"Waking Up / Growing Up / Cleaning Up", simple:"three different kinds of growing that don't come bundled", brief:"Wilber's three dimensions", category:"Integration", color:"var(--cat-integration)", buildsOn:["spiritual-bypassing","dark-night"], leadsTo:["ordinary-mind","effortless-awareness"], passage:"This explains one of the most confusing things in meditation: teachers who clearly have deep realization but also behave badly. The insight is that seeing the nature of mind doesn't automatically make you a mature, emotionally healthy person. Those are different skills requiring different work. A complete practice doesn't just sit on a cushion. It also goes to therapy. It also looks at the parts of yourself you'd rather not see.", definition:"Ken Wilber's framework for understanding why awakening alone isn't enough — and why some clearly realized teachers still cause harm. The insight is that human development has at least three independent dimensions that don't automatically advance together. Waking up is recognizing the nature of awareness — nondual recognition, rigpa, kensho, whatever your tradition calls it. This is what most meditation practice targets. Growing up is psychological and emotional maturation — the ability to take multiple perspectives, regulate emotions skillfully, maintain healthy relationships, and operate from increasingly integrated stages of ego development. This is what therapy, life experience, and relational practice develop. Cleaning up is shadow work — facing and integrating the parts of yourself that you've repressed, denied, or disowned. The anger you won't admit to. The fear you hide behind confidence. The childhood wounds you've never processed. These three dimensions are genuinely independent. A person can have deep nondual realization (waking up) while remaining emotionally immature (not growing up) and harboring unprocessed trauma (not cleaning up). History is full of examples: meditation masters with genuine insight who abuse students, spiritual teachers who can dissolve the subject-object boundary during meditation but can't maintain an honest relationship. The framework's practical implication is that a complete contemplative life requires all three. Sitting practice alone — no matter how deep — won't do it. You also need to grow up emotionally (which might mean therapy, honest relationships, and a willingness to be wrong) and clean up your shadow (which means looking at exactly the parts of yourself your spiritual practice might be helping you avoid).", analogy:"<strong>Think of it as:</strong> Being a brilliant musician (waking up) doesn't automatically make you a good person (growing up) or mean you've dealt with childhood trauma (cleaning up)." },
+  { id:"effortless-awareness", term:"Effortless Awareness", simple:"fully awake but not trying at all", brief:"What practice converges toward", category:"Integration", color:"var(--cat-integration)", buildsOn:["inverted-u","non-meditation","self-inquiry","trekcho","ways-of-looking","wake-grow-clean"], leadsTo:["ordinary-mind"], passage:"Imagine being completely alert — more alert than you've ever been — but with no strain at all. Not the alertness of caffeine or anxiety, where you're wired and tense. More like the alertness of a cat in sunlight: perfectly relaxed, perfectly awake, ready for anything. Every advanced tradition across the world converges on this same description. That should tell you something.", definition:"The common endpoint that every advanced contemplative tradition across cultures and centuries converges toward: a state of complete, vivid awareness maintained without any effort, technique, or intentional practice. Not drowsy relaxation. Not effortful concentration. A quality of awareness that is simultaneously more alert than normal consciousness and less strained — like the difference between gripping something tightly and having it rest naturally in an open palm. The Tibetan traditions describe it as the natural state of mind when fabrication is at its minimum. Zen calls it \"beginner's mind\" or the mind of shikantaza. Advaita calls it sahaja samadhi — the \"natural\" absorption that persists through all states including waking, dreaming, and deep sleep. The neuroscience confirms it from the outside: the inverted U-curve shows that the most expert meditators' brains use less energy than beginners' brains, suggesting that consciousness can be both highly organized and minimally effortful. What makes effortless awareness the penultimate stage rather than the final one is that it can still carry a subtle sense of being a special state — the awareness of being aware, a quiet satisfaction that \"this is it.\" The last step, into ordinary mind, is the dropping of even that.", analogy:"<strong>Think of it as:</strong> Floating in water. Effort makes you sink. Relaxation keeps you on the surface. But you needed to learn to swim first before you could trust the floating." },
+  { id:"ordinary-mind", term:"Ordinary Mind", simple:"everything looks normal but you're completely different", brief:"The destination that was always here", category:"Integration", color:"var(--cat-integration)", buildsOn:["effortless-awareness","non-meditation","mahamudra","shikantaza","wake-grow-clean"], leadsTo:[], passage:"After all the stages, all the maps, all the breakthroughs and dark nights — you end up right back where you started. Drinking tea. Doing the dishes. Walking the dog. Nothing looks different. But you're not the same person who started this journey. The mountains are mountains again, but the one seeing them has been quietly, completely, remade. And the tea? It's just tea. And that's the most extraordinary thing of all.", definition:"The endpoint of the entire contemplative journey, and the most paradoxical: after all the stages, techniques, breakthroughs, dark nights, recognitions, and integrations, you arrive at something that looks completely ordinary. Drinking tea. Washing dishes. Walking the dog. There are no fireworks, no special states, no transcendent glow. The Zen tradition captures this in the famous three stages: \"Before I studied Zen, mountains were mountains and rivers were rivers. While I studied Zen, mountains were no longer mountains and rivers were no longer rivers. After I studied Zen, mountains are mountains and rivers are rivers again.\" The difference between the first stage and the third is the person seeing them. \"Ordinary mind\" in this context doesn't mean your regular, pre-meditation consciousness. It means mind that isn't fabricating anything extra — no effort to be spiritual, no maintenance of special states, no subtle grasping at awakening, no separation between practice and life. It's the naturalness that remains when every technique has been thoroughly learned and then thoroughly released. What distinguishes this from the starting point is that the person has been transformed at every level. The perceptual shifts are permanent. The DMN has been permanently quieted. The subject-object structure has been seen through so completely it no longer reconstitutes. Emotional reactivity has been genuinely reduced at a neurological level. The three dimensions of growth — waking up, growing up, and cleaning up — have been addressed. All of that is present. But it doesn't announce itself. It just looks like a person fully engaged with a perfectly ordinary life. The Zen saying is: \"After enlightenment, chop wood, carry water.\" The wood and water haven't changed. The chopping and carrying haven't changed. But everything, somehow, is completely different.", analogy:"<strong>Think of it as:</strong> A musician who's spent decades mastering technique, and now plays with such ease it looks like they're barely trying. The simplicity on the other side of complexity." }
+];
+
+
+
+const LOOKUP = {};
+DATA.forEach(d => LOOKUP[d.id] = d);
+
+const TREE_DEFS = {
+  "samatha": "Pick one thing to focus on — your breath, a sound, anything. When your mind wanders, bring it back. That's the whole practice. Over time the mind settles on its own, and that stability becomes the foundation for everything else.",
+  "vipassana": "Instead of focusing on one thing, you observe whatever arises — sensations, thoughts, emotions — and notice that everything appears, stays briefly, and vanishes. Nothing is as solid as it seems, including the one watching.",
+  "metacognitive-awareness": "The moment you notice you're thinking, instead of being lost in the thought. That gap — between being carried away and catching yourself — is the most fundamental skill in meditation. Everything else builds on it.",
+  "jhana": "Deep absorption states where ordinary experience fades and is replaced by progressively refined qualities — rapture, bliss, contentment, equanimity. At the deeper levels, even the sense of self drops away. Not the goal, but a powerful tool.",
+  "tummo": "A Tibetan practice using visualization and breathwork to generate measurable body heat — monks raised their skin temperature by 6-7°C in lab studies. The heat is the side effect. The real product is nonconceptual awareness.",
+  "a-and-p": "A dramatic moment where perception suddenly sharpens — bright lights, energy surges, a feeling of \"I've figured it out.\" Routinely mistaken for enlightenment, but it's actually the gateway to harder territory. Can happen off the cushion.",
+  "dark-night": "A series of difficult stages after the A&P: Dissolution, Fear, Misery, Disgust, Desire for Deliverance, Re-observation. Your sharpened perception shows you things that are hard to look at. Not depression — but can look identical. Find a teacher for this part.",
+  "states-vs-traits": "A state is a great meditation session that fades by lunch. A trait is being less reactive in traffic three years in without trying. The whole point of sustained practice is converting temporary states into permanent traits.",
+  "fabrication": "Your mind constantly builds your experience — assembling a self, a world, a sense of time. Not an error to fix, but a process to see clearly. When you notice the construction happening, nothing breaks — things just become lighter and more workable.",
+  "nondual-awareness": "The recognition that the boundary between \"the one watching\" and \"the thing being watched\" was never actually there. Not a state you achieve — more like noticing something that was always the case but hidden by a habitual assumption.",
+  "rigpa": "The Dzogchen term for the awareness that's already awake before you do anything. You don't create it through practice — you recognize it. The challenge is that it's so close and so ordinary that the mind keeps looking past it for something fancier.",
+  "self-inquiry": "Ramana Maharshi's method: when a thought arises, ask \"Who is aware of this?\" and look for the one asking. You won't find anyone. That's not a failure — it's the insight. The looker can never become the looked-at.",
+  "koan": "A paradoxical question — \"What is the sound of one hand?\" — designed to exhaust the thinking mind. The teacher rejects every intellectual answer until the mind's conceptual machinery breaks down and something else comes forward.",
+  "kensho": "A direct glimpse of your true nature — the moment the subject-object boundary drops and what remains is recognized as what you always were. Genuine, but not the finish line. Teachers describe deepening this over years, even decades.",
+  "trekcho": "The main Dzogchen practice: rest in awareness, don't alter anything. Sounds like doing nothing, and without the right recognition it is. With it, doing nothing becomes the most radical form of practice. The hard part is trusting that less is more.",
+  "shikantaza": "No technique, no object, no goal. Just sit. The radical claim: this isn't the beginner's version — it's the advanced one. Your sitting, right now, exactly as you are, is itself the expression of awakened awareness.",
+  "mahamudra": "Four stages from effort to effortlessness: one-pointedness, simplicity, one taste, non-meditation. Tilopa's six words capture it all: don't recall, don't imagine, don't think, don't examine, don't control, rest.",
+  "ways-of-looking": "Rob Burbea's insight: what you perceive depends on how you're looking, and no single way reveals the truth. Since all ways of looking are fabricated, you're not trapped in any of them. You can choose. That's freedom.",
+  "non-meditation": "The point where \"doing meditation\" drops away because awareness maintains itself without effort. Not laziness — the result of skills so deeply integrated they run on their own, like breathing. You can't skip to this.",
+  "dmn": "A brain network that activates during mind-wandering and self-referential thought — the \"story of me\" running roughly half your waking life. Meditation measurably quiets it, first during sessions, eventually at baseline.",
+  "gamma-synchrony": "Expert meditators showed brain synchronization 25 times greater than non-meditators — and their brains looked like that before they even started meditating. It wasn't a state they turned on. It was who they'd become.",
+  "inverted-u": "Beginners show low brain effort. Intermediate meditators (~19,000 hours) show the most. The most advanced (~44,000 hours) show less effort than anyone — even non-meditators. Mastery isn't more effort. It's no effort.",
+  "spiritual-bypassing": "Using meditation or spiritual concepts to avoid facing real problems — invoking \"non-attachment\" to dodge intimacy, hiding behind \"everything is empty\" to bypass grief. The test: are people closest to you experiencing you as more present or more distant?",
+  "wake-grow-clean": "Three independent dimensions: recognizing awareness (waking up), maturing emotionally (growing up), integrating your shadow (cleaning up). They don't advance together. Deep realization can coexist with emotional immaturity. A complete practice addresses all three.",
+  "effortless-awareness": "Fully alert but with zero strain — like a cat in sunlight. Every advanced tradition converges on this description. The neuroscience confirms it: the most expert brains use less energy, not more.",
+  "ordinary-mind": "After all the stages and breakthroughs, you end up drinking tea and doing dishes. Nothing looks different. But the person seeing it has been completely remade. The simplicity on the other side of complexity."
+};
+
+DATA.forEach(d => { if (TREE_DEFS[d.id]) d.treeDef = TREE_DEFS[d.id]; });
+
+const CATEGORIES = [
+  { name:"All", color:"var(--accent)" },
+  { name:"Foundation", color:"var(--cat-foundation)" },
+  { name:"Concentration", color:"var(--cat-concentration)" },
+  { name:"Insight Stages", color:"var(--cat-insight)" },
+  { name:"Nondual Recognition", color:"var(--cat-nondual)" },
+  { name:"Neuroscience", color:"var(--cat-science)" },
+  { name:"Traps & Warnings", color:"var(--cat-traps)" },
+  { name:"Integration", color:"var(--cat-integration)" }
+];
+const CAT_ORDER = CATEGORIES.slice(1).map(c => c.name);
+const CAT_COLORS_RAW = { "Foundation":"#7ba38e", "Concentration":"#6e9ec9", "Insight Stages":"#c9886e", "Nondual Recognition":"#b07ec9", "Traps & Warnings":"#c96e6e", "Integration":"#c9b86e", "Neuroscience":"#6ec9c0" };
+
+const ERAS = [
+  { name:"Foundations", num:"I", ids:["samatha","metacognitive-awareness","dmn"] },
+  { name:"Core Skills", num:"II", ids:["vipassana","jhana","tummo"] },
+  { name:"Milestones", num:"III", ids:["a-and-p","fabrication","states-vs-traits","dark-night","gamma-synchrony"] },
+  { name:"Deep Practice", num:"IV", ids:["nondual-awareness","ways-of-looking","self-inquiry","koan","inverted-u","spiritual-bypassing"] },
+  { name:"Recognition", num:"V", ids:["rigpa","kensho","trekcho","shikantaza","mahamudra","wake-grow-clean"] },
+  { name:"Integration", num:"VI", ids:["non-meditation","effortless-awareness","ordinary-mind"] }
+];
+
+let activeFilter = "All";
+let searchQuery = "";
+
+// ═══════════ TAB NAVIGATION ═══════════
+const tabBtns = document.querySelectorAll('.tab[data-view]');
+const tabSlider = document.getElementById('tabSlider');
+let currentTabIdx = 0;
+
+function switchTab(idx, animate) {
+  const btn = tabBtns[idx];
+  if (!btn) return;
+  const viewId = btn.dataset.view;
+  if (!viewId) return;
+
+  // Update buttons
+  tabBtns.forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Slide pill
+  tabSlider.style.left = (idx * 25 + 0.5) + '%';
+
+  // Switch views with optional fade
+  document.querySelectorAll('.view[id]').forEach(v => {
+    v.classList.remove('active', 'fade-in');
+  });
+  const target = document.getElementById(viewId);
+  if (target) {
+    target.classList.add('active');
+    if (animate && idx !== currentTabIdx) {
+      target.classList.add('fade-in');
+    }
+  }
+
+  currentTabIdx = idx;
+  window.scrollTo(0, 0);
+
+  // Lazy-init Sudoku on first visit
+  if (viewId === 'viewSudoku' && typeof SDK !== 'undefined') SDK.init();
+}
+
+tabBtns.forEach((btn, i) => {
+  btn.addEventListener('click', () => switchTab(i, true));
+});
+
+// For navToCard — switch to glossary tab programmatically
+function switchToTab(viewId) {
+  const idx = [...tabBtns].findIndex(b => b.dataset.view === viewId);
+  if (idx >= 0) switchTab(idx, true);
+}
+
+// ═══════════ LIST VIEW ═══════════
+function getColor(cat) {
+  const c = CATEGORIES.find(x => x.name === cat);
+  return c ? c.color : "var(--accent)";
+}
+
+function highlight(text, q) {
+  if (!q) return text;
+  const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  return text.replace(re, '<mark class="search-hl">$1</mark>');
+}
+
+function buildFilters() {
+  const el = document.getElementById('filterScroll');
+  CATEGORIES.forEach(cat => {
+    const chip = document.createElement('button');
+    chip.className = 'filter-chip' + (cat.name === 'All' ? ' active' : '');
+    chip.dataset.cat = cat.name;
+    chip.innerHTML = cat.name !== 'All'
+      ? `<span class="filter-dot" style="background:${cat.color}"></span>${cat.name}`
+      : 'All';
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = cat.name;
+      renderCards();
+    });
+    el.appendChild(chip);
+  });
+}
+
+function navToCard(id) {
+  // Switch to glossary tab
+  switchToTab('viewList');
+  activeFilter = 'All'; searchQuery = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.cat === 'All'));
+  renderCards();
+  setTimeout(() => {
+    const el = document.querySelector(`[data-card-id="${id}"]`);
+    if (el) {
+      document.querySelectorAll('.m-card.open').forEach(c => c.classList.remove('open'));
+      el.classList.add('open');
+      el.scrollIntoView({ behavior:'smooth', block:'center' });
+    }
+  }, 80);
+}
+
+function buildConnChips(ids, label, cls) {
+  if (!ids || !ids.length) return '';
+  const chips = ids.filter(id => LOOKUP[id]).map(id => {
+    const d = LOOKUP[id];
+    return `<span class="m-conn-chip" data-nav="${id}"><span class="filter-dot" style="background:${d.color}"></span>${d.term}</span>`;
+  }).join('');
+  if (!chips) return '';
+  return `<div><div class="m-conn-label ${cls}">${label}</div><div class="m-conn-chips">${chips}</div></div>`;
+}
+
+function renderCards() {
+  const container = document.getElementById('cardList');
+  const noRes = document.getElementById('noResults');
+  container.innerHTML = '';
+  const q = searchQuery.toLowerCase().trim();
+
+  const filtered = DATA.filter(d => {
+    const mCat = activeFilter === 'All' || d.category === activeFilter;
+    const mQ = !q || d.term.toLowerCase().includes(q) || d.brief.toLowerCase().includes(q)
+      || d.simple.toLowerCase().includes(q) || d.definition.toLowerCase().includes(q)
+      || d.category.toLowerCase().includes(q);
+    return mCat && mQ;
+  });
+
+  if (!filtered.length) { noRes.style.display = 'block'; return; }
+  noRes.style.display = 'none';
+
+  const groups = {};
+  CAT_ORDER.forEach(cat => { const items = filtered.filter(i => i.category === cat); if (items.length) groups[cat] = items; });
+
+  Object.entries(groups).forEach(([cat, items]) => {
+    const label = document.createElement('div');
+    label.className = 'cat-label';
+    label.innerHTML = `<span class="filter-dot" style="background:${getColor(cat)}"></span>${cat}<span class="cat-line"></span>`;
+    container.appendChild(label);
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'm-card';
+      card.dataset.cardId = item.id;
+
+      const from = buildConnChips(item.buildsOn, 'Builds on', 'from');
+      const to = buildConnChips(item.leadsTo, 'Leads to', 'to');
+      const conns = (from || to) ? `<div class="m-connections">${from}${to}</div>` : '';
+
+      card.innerHTML = `
+        <div class="m-card-head">
+          <span class="m-card-dot" style="background:${item.color}"></span>
+          <div class="m-card-info">
+            <div class="m-card-term">${highlight(item.term, q)}</div>
+            <div class="m-card-simple">${item.simple}</div>
+          </div>
+          <svg class="m-card-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+        </div>
+        <div class="m-card-body"><div class="m-card-content">
+          ${highlight(item.definition, q)}
+          ${item.analogy ? `<div class="m-analogy">${item.analogy}</div>` : ''}
+          ${conns}
+        </div></div>`;
+
+      card.querySelector('.m-card-head').addEventListener('click', () => card.classList.toggle('open'));
+      card.querySelectorAll('.m-conn-chip[data-nav]').forEach(chip => {
+        chip.addEventListener('click', e => { e.stopPropagation(); navToCard(chip.dataset.nav); });
+      });
+      container.appendChild(card);
+    });
+  });
+}
+
+document.getElementById('searchInput').addEventListener('input', e => { searchQuery = e.target.value; renderCards(); });
+buildFilters();
+renderCards();
+
+// ═══════════ TECH TREE ═══════════
+let learned = new Set();
+function saveProg() { /* in-memory only */ }
+
+function isAvail(id) {
+  const d = LOOKUP[id]; if (!d) return false;
+  if (!d.buildsOn.length) return true;
+  return d.buildsOn.every(dep => learned.has(dep));
+}
+function nodeState(id) { return learned.has(id) ? 'learned' : isAvail(id) ? 'available' : 'locked'; }
+
+function prereqNames(id) {
+  const d = LOOKUP[id]; if (!d || !d.buildsOn.length) return '';
+  const need = d.buildsOn.filter(dep => !learned.has(dep)).map(dep => LOOKUP[dep]?.term || dep);
+  return need.length ? 'Needs: ' + need.join(', ') : '';
+}
+
+function unlearnCascade(id) {
+  learned.delete(id);
+  DATA.forEach(d => { if (d.buildsOn.includes(id) && learned.has(d.id)) unlearnCascade(d.id); });
+}
+
+const lockSvg = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="var(--text-dim)"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>';
+const checkSvg = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="var(--accent)"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>';
+const circleSvg = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="var(--text-dim)"><circle cx="12" cy="12" r="9" /></svg>';
+
+const plusSvg = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>';
+const minusSvg = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" /></svg>';
+
+const treeNodeEls = {};
+
+function buildTree() {
+  const container = document.getElementById('treeEras');
+  container.innerHTML = '';
+
+  ERAS.forEach(era => {
+    const eraEl = document.createElement('div');
+    eraEl.className = 'tree-era';
+    eraEl.innerHTML = `<div class="era-badge"><span class="era-num">Era ${era.num}</span><span class="era-title">${era.name}</span></div>`;
+
+    const nodes = document.createElement('div');
+    nodes.className = 'era-nodes';
+
+    era.ids.forEach(id => {
+      const d = LOOKUP[id]; if (!d) return;
+      const state = nodeState(id);
+      const node = document.createElement('div');
+      node.className = `t-node ${state}`;
+      node.dataset.id = id;
+
+      node.innerHTML = `
+        <div class="t-node-head">
+          <span class="t-dot" style="background:${d.color}"></span>
+          <div class="t-info"><div class="t-term">${d.term}</div><div class="t-simple">${d.simple}</div></div>
+          <div class="t-expand">${plusSvg}</div>
+          <div class="t-status">${state==='learned'?checkSvg:state==='locked'?lockSvg:circleSvg}<div class="status-ring"></div><div class="status-particle" style="--pp:translate(-16px,-20px)"></div><div class="status-particle" style="--pp:translate(18px,-16px)"></div><div class="status-particle" style="--pp:translate(-20px,10px)"></div><div class="status-particle" style="--pp:translate(14px,18px)"></div><div class="status-particle" style="--pp:translate(0,-24px)"></div></div>
+        </div>
+        ${state==='locked'? `<div class="t-prereq">${prereqNames(id)}</div>`:''}
+        <div class="t-body">
+          <div class="t-body-inner">
+            <div class="t-definition">${d.treeDef || d.definition}</div>
+            <div class="t-passage">
+              <div class="t-passage-label">Sit with this</div>
+              <div class="t-passage-text">${d.passage}</div>
+            </div>
+            <div class="t-glossary-link" data-nav="${id}">Read more in Glossary →</div>
+          </div>
+        </div>
+      `;
+
+      // Tapping anywhere on the head row expands/collapses (except the checkmark)
+      node.querySelector('.t-node-head').addEventListener('click', function(e) {
+        if (e.target.closest('.t-status')) return; // let status handle itself
+        e.preventDefault();
+        if (nodeState(id) === 'locked') return;
+        node.classList.toggle('t-open');
+        node.querySelector('.t-expand').innerHTML = node.classList.contains('t-open') ? minusSvg : plusSvg;
+      });
+
+      // Learn/unlearn only on the checkmark button
+      node.querySelector('.t-status').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const s = nodeState(id);
+        if (s === 'locked') return;
+        const wasLearning = s === 'available';
+        if (wasLearning) learned.add(id); else unlearnCascade(id);
+        saveProg();
+        refreshTree();
+        // Bounce animation on learn
+        if (wasLearning) {
+          const btn = treeNodeEls[id]?.querySelector('.t-status');
+          if (btn) {
+            btn.classList.remove('pop');
+            void btn.offsetWidth;
+            btn.classList.add('pop');
+            btn.addEventListener('animationend', () => btn.classList.remove('pop'), { once: true });
+          }
+          checkEraCompletion(id);
+        }
+      });
+
+      // Glossary deep-link
+      const gLink = node.querySelector('.t-glossary-link');
+      if (gLink) gLink.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navToCard(this.dataset.nav);
+      });
+
+      nodes.appendChild(node);
+      treeNodeEls[id] = node;
+    });
+
+    eraEl.appendChild(nodes);
+    container.appendChild(eraEl);
+  });
+
+  updateProg();
+}
+
+function refreshTree() {
+  DATA.forEach(d => {
+    const el = treeNodeEls[d.id]; if (!el) return;
+    const s = nodeState(d.id);
+    // Preserve open state
+    const wasOpen = el.classList.contains('t-open');
+    el.className = `t-node ${s}${wasOpen && s !== 'locked' ? ' t-open' : ''}`;
+
+    const statusIcon = s==='learned'?checkSvg:s==='locked'?lockSvg:circleSvg;
+    el.querySelector('.t-status').innerHTML = statusIcon + '<div class="status-ring"></div><div class="status-particle" style="--pp:translate(-16px,-20px)"></div><div class="status-particle" style="--pp:translate(18px,-16px)"></div><div class="status-particle" style="--pp:translate(-20px,10px)"></div><div class="status-particle" style="--pp:translate(14px,18px)"></div><div class="status-particle" style="--pp:translate(0,-24px)"></div>';
+
+    // Update expand button visibility (hidden when locked via CSS)
+    const expandBtn = el.querySelector('.t-expand');
+    if (s === 'locked' && wasOpen) {
+      el.classList.remove('t-open');
+      expandBtn.innerHTML = plusSvg;
+    }
+
+    const existing = el.querySelector('.t-prereq');
+    if (existing) existing.remove();
+    if (s === 'locked') {
+      const pre = document.createElement('div');
+      pre.className = 't-prereq';
+      pre.textContent = prereqNames(d.id);
+      // Insert before t-body
+      const body = el.querySelector('.t-body');
+      el.insertBefore(pre, body);
+    }
+  });
+  updateProg();
+  renderBooks();
+}
+
+function updateProg() {
+  const pct = learned.size / DATA.length;
+  const circumference = 2 * Math.PI * 30;
+  const offset = circumference * (1 - pct);
+  document.getElementById('ringFill').style.strokeDasharray = circumference;
+  document.getElementById('ringFill').style.strokeDashoffset = offset;
+  document.getElementById('tpNum').textContent = learned.size;
+  // Show current active era
+  const activeEra = ERAS.find(era => !era.ids.every(id => learned.has(id)));
+  if (activeEra) {
+    document.getElementById('tpEra').textContent = `Era ${activeEra.num} — ${activeEra.name}`;
+  } else {
+    document.getElementById('tpEra').textContent = 'All eras complete ◆';
+  }
+}
+
+// Era completion tracking
+const completedEras = new Set();
+function checkEraCompletion(justLearnedId) {
+  ERAS.forEach((era, i) => {
+    if (completedEras.has(i)) return;
+    if (era.ids.every(id => learned.has(id))) {
+      completedEras.add(i);
+      // Show banner
+      const banner = document.getElementById('eraBanner');
+      document.getElementById('eraBannerTitle').textContent = `Era ${era.num} Complete`;
+      const nextEra = ERAS[i + 1];
+      document.getElementById('eraBannerSub').textContent = nextEra
+        ? `${era.name} mastered — ${nextEra.name} unlocked`
+        : `${era.name} mastered — journey complete`;
+      banner.classList.add('show');
+      setTimeout(() => banner.classList.remove('show'), 3200);
+    }
+  });
+}
+
+document.getElementById('treeReset').addEventListener('click', () => { learned.clear(); completedEras.clear(); saveProg(); refreshTree(); });
+
+// ═══════════ BOOKS DATA ═══════════
+const BOOKS = [
+  // ERA 1 — Foundations
+  { era:1, type:"core", title:"Mindfulness in Plain English", author:"Bhante Gunaratana", desc:"The classic introduction. No jargon, no mysticism — just clear instructions for building a sitting practice from scratch. Start here if you've never meditated." },
+  { era:1, type:"core", title:"The Mind Illuminated", author:"Culadasa (John Yates)", desc:"A detailed stage-by-stage roadmap for developing concentration and mindfulness. Uniquely combines traditional Buddhist practice with cognitive science. The most complete beginner-to-advanced manual available." },
+  { era:1, type:"companion", title:"The Miracle of Mindfulness", author:"Thich Nhat Hanh", desc:"A gentler, more poetic entry point. Teaches mindfulness through everyday activities — washing dishes, drinking tea. Good if the technical approach doesn't click for you." },
+  { era:1, type:"companion", title:"Thinking, Fast and Slow", author:"Daniel Kahneman", desc:"Not a meditation book, but the science behind why attention training matters. The dual-process theory maps almost perfectly onto the Default Mode Network and metacognitive awareness." },
+  // ERA 2 — Core Skills
+  { era:2, type:"core", title:"The Attention Revolution", author:"B. Alan Wallace", desc:"Focused specifically on building deep concentration through shamatha. Lays out ten stages of attentional development with practical guidance for each." },
+  { era:2, type:"core", title:"Right Concentration", author:"Leigh Brasington", desc:"A practical guide to the jhanas — the deep absorption states. Demystifies what they are, how to access them, and what they're actually for." },
+  { era:2, type:"companion", title:"Focused and Fearless", author:"Shaila Catherine", desc:"An alternative jhana guide with a slightly different approach than Brasington. More emphasis on the emotional qualities of each absorption state." },
+  { era:2, type:"companion", title:"The Bliss of Inner Fire", author:"Lama Yeshe", desc:"The go-to English text on Tummo practice. Covers the visualization system, the subtle body channels, and what inner heat is actually pointing toward." },
+  { era:2, type:"companion", title:"Flow", author:"Mihaly Csikszentmihalyi", desc:"Secular jhana theory without knowing it. The psychology of optimal experience maps directly onto absorption states — deep focus, loss of self-consciousness, time distortion." },
+  // ERA 3 — Milestones
+  { era:3, type:"core", title:"Mastering the Core Teachings of the Buddha", author:"Daniel Ingram", desc:"Unapologetically direct map of the insight stages including the difficult ones most teachers won't discuss openly. Essential reading before or during the A&P and Dark Night territory." },
+  { era:3, type:"core", title:"The Progress of Insight", author:"Mahasi Sayadaw", desc:"The original source text mapping the stages of insight that Ingram's book builds on. Short, dense, and precise. Read alongside a commentary for best results." },
+  { era:3, type:"core", title:"Altered Traits", author:"Daniel Goleman & Richard Davidson", desc:"The neuroscience behind meditation — what actually changes in the brain, what doesn't, and how to tell the difference between states and traits. Grounds the subjective maps in hard data." },
+  { era:3, type:"companion", title:"The Body Keeps the Score", author:"Bessel van der Kolk", desc:"How trauma lives in the body and why meditation can both help and destabilize. Essential context for the Dark Night stages and the 'cleaning up' dimension. Read this before things get rough." },
+  { era:3, type:"companion", title:"Buddha's Brain", author:"Rick Hanson", desc:"Supplements Altered Traits with more practical applications. How to use the neuroscience of meditation to actively reshape neural pathways." },
+  { era:3, type:"companion", title:"Man's Search for Meaning", author:"Viktor Frankl", desc:"Finding equanimity under the worst possible conditions. Frankl's account of meaning-making in concentration camps resonates deeply with the insight that suffering is workable." },
+  // ERA 4 — Deep Practice
+  { era:4, type:"core", title:"Seeing That Frees", author:"Rob Burbea", desc:"A masterwork on emptiness and fabrication. Shows how shifting your 'way of looking' changes what you perceive. Difficult but transformative — the book that connects insight practice to nondual understanding." },
+  { era:4, type:"core", title:"Waking Up", author:"Sam Harris", desc:"A neuroscientist's case for nondual awareness without religious baggage. Excellent bridge from concentration/insight practice into recognizing the nature of consciousness itself." },
+  { era:4, type:"core", title:"I Am That", author:"Nisargadatta Maharaj", desc:"Dialogues with a master of self-inquiry. Not a how-to book — more like sitting with someone who has completed the journey. Best read slowly, a few pages at a time." },
+  { era:4, type:"companion", title:"Be As You Are", author:"David Godman (ed.)", desc:"Ramana Maharshi's teachings compiled as Q&A. More accessible than I Am That as a self-inquiry primer — clear, direct questions and answers about turning attention toward the subject." },
+  { era:4, type:"companion", title:"Sitting with Koans", author:"John Daido Loori", desc:"The missing koan resource. How koan practice actually works from the inside — not just the famous riddles but the method of engaging them and what they're designed to break open." },
+  { era:4, type:"companion", title:"The Tao of Physics", author:"Fritjof Capra", desc:"Nondual awareness and fabrication explained through particle physics. Written in the 1970s but the parallels between quantum mechanics and contemplative insight still land." },
+  // ERA 5 — Recognition
+  { era:5, type:"core", title:"Zen Mind, Beginner's Mind", author:"Shunryu Suzuki", desc:"The essence of shikantaza in gentle, paradoxical language. Nothing extra. If this book clicks for you, it might be all you need." },
+  { era:5, type:"core", title:"Pointing Out the Great Way", author:"Daniel P. Brown", desc:"The most detailed English-language guide to the Mahamudra path. Academic but practical — maps the four yogas stage by stage with pointing-out instructions." },
+  { era:5, type:"core", title:"The Crystal and the Way of Light", author:"Chogyal Namkhai Norbu", desc:"An accessible introduction to Dzogchen — recognizing rigpa and the practice of Trekchö. Written for Western students without dumbing anything down." },
+  { era:5, type:"companion", title:"Open Heart, Open Mind", author:"Tsoknyi Rinpoche", desc:"A more accessible path into nondual recognition than the academic texts. Combines Dzogchen pointing-out with emotional intelligence work." },
+  { era:5, type:"companion", title:"Vivid Awareness", author:"Khenchen Thrangu Rinpoche", desc:"A gentler Mahamudra guide than Daniel Brown. Good for practitioners who find Pointing Out the Great Way too dense." },
+  // ERA 6 — Integration
+  { era:6, type:"core", title:"After the Ecstasy, the Laundry", author:"Jack Kornfield", desc:"What happens after awakening — the integration challenges, the continued human messiness, and how to bring realization into daily life. Covers the 'growing up' and 'cleaning up' dimensions." },
+  { era:6, type:"core", title:"Integral Meditation", author:"Ken Wilber", desc:"The wake up / grow up / clean up framework in practice. How to combine contemplative insight with psychological development and shadow work." },
+  { era:6, type:"core", title:"The Myth of Freedom", author:"Chögyam Trungpa", desc:"What 'ordinary mind' actually means — cutting through spiritual materialism and the trap of making enlightenment into another thing to achieve. A sharp, unsentimental guide to letting go of the path itself." },
+  { era:6, type:"companion", title:"When Things Fall Apart", author:"Pema Chödrön", desc:"Probably the most widely read book on bringing practice into messy real life. Groundlessness as a starting point rather than a problem to solve." },
+  { era:6, type:"companion", title:"Toward a Psychology of Awakening", author:"John Welwood", desc:"Written by the man who coined 'spiritual bypassing.' How to integrate psychological growth with contemplative realization — the bridge between therapist's office and meditation cushion." }
+];
+
+const FURTHER_AFIELD = [
+  { title:"Zen and the Art of Motorcycle Maintenance", author:"Robert Pirsig", desc:"Nondual awareness and 'Quality' as direct perception, explored through engine repair and a philosophy road trip. Pirsig is writing about fabrication and ordinary mind — he just doesn't use those words.", tag:"Philosophy" },
+  { title:"Siddhartha", author:"Hermann Hesse", desc:"The entire insight path as a novel — from ascetic practice through disillusionment through integration. Covers foundations to ordinary mind in one short, beautiful arc.", tag:"Fiction" },
+  { title:"Gödel, Escher, Bach", author:"Douglas Hofstadter", desc:"Self-reference, strange loops, and the nature of consciousness explored through math, art, and music. Touches metacognitive awareness, fabrication, and the hard problem of consciousness all at once.", tag:"Consciousness" },
+  { title:"The Master and His Emissary", author:"Iain McGilchrist", desc:"Left brain / right brain as a lens on nondual vs. conceptual modes of knowing. The brain hemisphere theory maps onto the shift from analytical insight to nondual recognition in ways the author may not have fully intended.", tag:"Neuroscience" },
+  { title:"The Way of a Pilgrim", author:"Anonymous", desc:"A Russian peasant's account of practicing the Jesus Prayer until it becomes continuous — the Eastern Orthodox version of the entire concentration-to-effortless-awareness arc. Proof these maps aren't Buddhist-specific.", tag:"Contemplative" },
+  { title:"Autobiography of a Yogi", author:"Paramahansa Yogananda", desc:"Wild, uneven, and famously the only book on Steve Jobs' iPad. A journey through the yogic tradition with enough verifiable strangeness to keep a skeptic honest.", tag:"Memoir" }
+];
+
+const ERA_NAMES = { 1:"Foundations", 2:"Core Skills", 3:"Milestones", 4:"Deep Practice", 5:"Recognition", 6:"Integration" };
+const ERA_NUMS = { 1:"I", 2:"II", 3:"III", 4:"IV", 5:"V", 6:"VI" };
+
+function getActiveEras() {
+  const eraStatus = ERAS.map((era, i) => {
+    const total = era.ids.length;
+    const learnedCount = era.ids.filter(id => learned.has(id)).length;
+    return { idx: i+1, total, learnedCount, complete: learnedCount === total };
+  });
+
+  if (learned.size === 0) return new Set([1, 2]);
+
+  const active = new Set();
+  for (let i = 0; i < eraStatus.length; i++) {
+    const era = eraStatus[i];
+    if (!era.complete) {
+      active.add(era.idx);
+      if (i + 1 < eraStatus.length) active.add(eraStatus[i+1].idx);
+      break;
+    }
+  }
+  if (active.size === 0) active.add(6);
+  return active;
+}
+
+function renderBooks() {
+  const container = document.getElementById('bookList');
+  container.innerHTML = '';
+  const activeEras = getActiveEras();
+  let coreNum = 0;
+
+  const eraGroups = {};
+  BOOKS.forEach(b => {
+    if (!eraGroups[b.era]) eraGroups[b.era] = [];
+    eraGroups[b.era].push(b);
+  });
+
+  Object.keys(eraGroups).sort((a,b) => a-b).forEach(eraNum => {
+    const books = eraGroups[eraNum];
+    const isActive = activeEras.has(Number(eraNum));
+
+    const section = document.createElement('div');
+    section.className = 'book-era-section';
+
+    section.innerHTML = `<div class="book-era-label">
+      <span class="book-era-num">Era ${ERA_NUMS[eraNum]}</span>
+      <span class="book-era-title">${ERA_NAMES[eraNum]}</span>
+      <span class="book-era-line"></span>
+    </div>`;
+
+    const cardsWrap = document.createElement('div');
+    cardsWrap.className = 'book-era-cards';
+
+    // Core books first, then companions
+    const cores = books.filter(b => b.type === 'core');
+    const companions = books.filter(b => b.type === 'companion');
+
+    cores.forEach(book => {
+      coreNum++;
+      const card = document.createElement('div');
+      card.className = `book-card ${isActive ? 'active' : 'dimmed'}`;
+      card.innerHTML = `
+        <div class="book-order">${coreNum}</div>
+        <div class="book-meta">
+          <div class="book-title">${book.title}</div>
+          <div class="book-author">${book.author}</div>
+          <div class="book-desc">${book.desc}</div>
+          <div class="book-current-badge">Current read</div>
+        </div>
+      `;
+      cardsWrap.appendChild(card);
+    });
+
+    companions.forEach(book => {
+      const card = document.createElement('div');
+      card.className = `book-card companion ${isActive ? 'active' : 'dimmed'}`;
+      card.innerHTML = `
+        <div class="book-order"></div>
+        <div class="book-meta">
+          <div class="book-title">${book.title}</div>
+          <div class="book-author">${book.author}</div>
+          <div class="book-desc">${book.desc}</div>
+          <div class="book-type-badge">Companion read</div>
+        </div>
+      `;
+      cardsWrap.appendChild(card);
+    });
+
+    section.appendChild(cardsWrap);
+    container.appendChild(section);
+  });
+
+  // Further Afield
+  const fa = document.getElementById('furtherAfield');
+  fa.innerHTML = `<div class="further-afield-header">
+    <h3>Further Afield</h3>
+    <p>Same territory, different doors. These aren't meditation books — but they hit the same truths sideways.</p>
+  </div>`;
+  const faCards = document.createElement('div');
+  faCards.className = 'further-afield-cards';
+  FURTHER_AFIELD.forEach(book => {
+    const card = document.createElement('div');
+    card.className = 'fa-card';
+    card.innerHTML = `
+      <div class="fa-card-title">${book.title}</div>
+      <div class="fa-card-author">${book.author}</div>
+      <div class="fa-card-desc">${book.desc}</div>
+      <div class="fa-card-tag">${book.tag}</div>
+    `;
+    faCards.appendChild(card);
+  });
+  fa.appendChild(faCards);
+}
+
+// ═══════════ THEME TOGGLE ═══════════
+const themeToggle = document.getElementById('themeToggle');
+const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+themeToggle.addEventListener('click', () => {
+  document.documentElement.classList.toggle('light');
+  const isLight = document.documentElement.classList.contains('light');
+  if (metaTheme) metaTheme.setAttribute('content', isLight ? '#f4f0e8' : '#0f0f0e');
+});
+
+buildTree();
+renderBooks();
+// ═══════════ SUDOKU GAME (namespaced) ═══════════
+const SDK = (function() {
+  let initialized = false;
+
+  // State
+  const S = {
+    board: [], solution: [], givenCells: new Set(),
+    candidates: [], selected: new Set(), primaryCell: null,
+    history: [], historyIndex: -1,
+    difficulty: 'Medium', noteMode: false, lockedNumber: null,
+    autoCleanNotes: true, showHighlighting: true, showConflicts: true,
+    currentSeed: null, puzzleArchetype: null, techniquesRequired: []
+  };
+
+  // RNG
+  let randState = 1;
+  function sRand() { randState|=0; randState=randState+0x6D2B79F5|0; let t=Math.imul(randState^randState>>>15,1|randState); t=t+Math.imul(t^t>>>7,61|t)^t; return((t^t>>>14)>>>0)/4294967296; }
+  function setSeed(s) { S.currentSeed=s; randState=s; }
+  function genSeed() { return Math.floor(Math.random()*2147483647); }
+  function shuf(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(sRand()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+  const DIFF = {
+    'Beginner':{target:45,min:42,maxAdv:0,notes:99},
+    'Easy':{target:38,min:35,maxAdv:0,notes:65},
+    'Medium':{target:32,min:28,maxAdv:5,notes:39},
+    'Hard':{target:26,min:23,maxAdv:15,notes:19},
+    'Expert':{target:22,min:17,maxAdv:99,notes:13}
+  };
+
+  function valid(b,r,c,n){for(let i=0;i<9;i++){if(b[r][i]===n||b[i][c]===n)return false;}const br=Math.floor(r/3)*3,bc=Math.floor(c/3)*3;for(let rr=br;rr<br+3;rr++)for(let cc=bc;cc<bc+3;cc++)if(b[rr][cc]===n)return false;return true;}
+  function getPoss(b,r,c){const p=[];for(let n=1;n<=9;n++)if(valid(b,r,c,n))p.push(n);return p;}
+
+  function countSols(board,lim=2){const cp=board.map(r=>[...r]);let count=0;function best(){let mn=10,b=null;for(let r=0;r<9;r++)for(let c=0;c<9;c++)if(cp[r][c]===0){let cnt=0;for(let n=1;n<=9;n++)if(valid(cp,r,c,n))cnt++;if(cnt===0)return null;if(cnt<mn){mn=cnt;b=[r,c];}}return b;}function solve(){if(count>=lim)return;const cell=best();if(!cell){count++;return;}const[r,c]=cell;for(let n=1;n<=9;n++){if(valid(cp,r,c,n)){cp[r][c]=n;solve();cp[r][c]=0;}}}solve();return count;}
+
+  function genBoard(){const b=Array(9).fill(null).map(()=>Array(9).fill(0));for(let box=0;box<3;box++){const nums=shuf([1,2,3,4,5,6,7,8,9]);const br=box*3;for(let i=0;i<9;i++)b[br+Math.floor(i/3)][br+(i%3)]=nums[i];}fill(b);return b;}
+  function fill(b){let mn=10,best=null;for(let r=0;r<9;r++)for(let c=0;c<9;c++)if(b[r][c]===0){const cnt=getPoss(b,r,c).length;if(cnt<mn){mn=cnt;best=[r,c];}}if(!best)return true;const[row,col]=best;for(const num of shuf(getPoss(b,row,col))){b[row][col]=num;if(fill(b))return true;b[row][col]=0;}return false;}
+
+  function getSymPairs(type){const pairs=[],seen=new Set();for(let r=0;r<9;r++)for(let c=0;c<9;c++){const k=`${r},${c}`;if(seen.has(k))continue;let g=[[r,c]];seen.add(k);if(type==='rotational'){const pr=8-r,pc=8-c,pk=`${pr},${pc}`;if(!seen.has(pk)){g.push([pr,pc]);seen.add(pk);}}pairs.push(g);}return shuf(pairs);}
+
+  // Solver for technique analysis
+  function createCands(board){const c=Array(9).fill(null).map(()=>Array(9).fill(null).map(()=>new Set()));for(let r=0;r<9;r++)for(let col=0;col<9;col++)if(board[r][col]===0)for(let n=1;n<=9;n++)if(valid(board,r,col,n))c[r][col].add(n);return c;}
+
+  function elimCand(cands,row,col,num){for(let c=0;c<9;c++)cands[row][c].delete(num);for(let r=0;r<9;r++)cands[r][col].delete(num);const br=Math.floor(row/3)*3,bc=Math.floor(col/3)*3;for(let r=br;r<br+3;r++)for(let c=bc;c<bc+3;c++)cands[r][c].delete(num);}
+
+  function analyze(board){const cp=board.map(r=>[...r]);let cands=createCands(cp);const tech=new Set();let changed=true,iter=0;while(changed&&iter<100){changed=false;iter++;
+    for(let r=0;r<9;r++)for(let c=0;c<9;c++)if(cp[r][c]===0&&cands[r][c].size===1){const v=[...cands[r][c]][0];cp[r][c]=v;tech.add('nakedSingle');elimCand(cands,r,c,v);cands[r][c].clear();changed=true;}
+    if(changed)continue;
+    outer:for(let r=0;r<9;r++)for(let c=0;c<9;c++)if(cp[r][c]===0)for(const num of cands[r][c]){let ur=true;for(let cc=0;cc<9;cc++)if(cc!==c&&cands[r][cc].has(num)){ur=false;break;}if(ur){cp[r][c]=num;tech.add('hiddenSingle');elimCand(cands,r,c,num);cands[r][c].clear();changed=true;break outer;}let uc=true;for(let rr=0;rr<9;rr++)if(rr!==r&&cands[rr][c].has(num)){uc=false;break;}if(uc){cp[r][c]=num;tech.add('hiddenSingle');elimCand(cands,r,c,num);cands[r][c].clear();changed=true;break outer;}const br2=Math.floor(r/3)*3,bc2=Math.floor(c/3)*3;let ub=true;for(let rr=br2;rr<br2+3;rr++){for(let cc=bc2;cc<bc2+3;cc++)if((rr!==r||cc!==c)&&cands[rr][cc].has(num)){ub=false;break;}if(!ub)break;}if(ub){cp[r][c]=num;tech.add('hiddenSingle');elimCand(cands,r,c,num);cands[r][c].clear();changed=true;break outer;}}
+  }
+  let unsolved=0;for(let r=0;r<9;r++)for(let c=0;c<9;c++)if(cp[r][c]===0)unsolved++;
+  return{solvable:unsolved===0,techniquesUsed:[...tech],unsolved,requiresGuessing:unsolved>0};}
+
+  function generatePuzzle(diff, seed) {
+    const baseSeed = seed !== undefined ? seed : genSeed();
+    S.difficulty = diff;
+    const settings = DIFF[diff];
+    for (let attempt = 0; attempt < 10; attempt++) {
+      setSeed(baseSeed + attempt);
+      S.solution = genBoard();
+      S.board = S.solution.map(r => [...r]);
+      const pairs = getSymPairs('rotational');
+      let removed = 0;
+      const target = 81 - settings.target;
+      for (const pair of pairs) {
+        if (removed >= target) break;
+        const backups = pair.map(([r,c]) => S.board[r][c]);
+        for (const [r,c] of pair) S.board[r][c] = 0;
+        if (countSols(S.board) !== 1) {
+          for (let i = 0; i < pair.length; i++) S.board[pair[i][0]][pair[i][1]] = backups[i];
+          continue;
+        }
+        if (settings.maxAdv < 99) {
+          const a = analyze(S.board);
+          if (a.requiresGuessing || a.unsolved > settings.maxAdv) {
+            for (let i = 0; i < pair.length; i++) S.board[pair[i][0]][pair[i][1]] = backups[i];
+            continue;
+          }
+        }
+        removed += pair.length;
+      }
+      S.givenCells.clear();
+      for (let r = 0; r < 9; r++) for (let c = 0; c < 9; c++) if (S.board[r][c] !== 0) S.givenCells.add(`${r}-${c}`);
+      const clues = 81 - countEmpty();
+      if (clues >= settings.min) {
+        S.candidates = Array(9).fill(null).map(() => Array(9).fill(null).map(() => new Set()));
+        S.history = []; S.historyIndex = -1;
+        S.selected.clear(); S.primaryCell = null; S.noteMode = false; S.lockedNumber = null;
+        S.techniquesRequired = analyze(S.board).techniquesUsed;
+        return;
+      }
+    }
+    // Fallback
+    setSeed(baseSeed);
+    S.solution = genBoard(); S.board = S.solution.map(r => [...r]);
+    const pairs = getSymPairs('rotational');
+    let removed = 0;
+    for (const pair of pairs) {
+      if (removed >= 81 - settings.target) break;
+      const backups = pair.map(([r,c]) => S.board[r][c]);
+      for (const [r,c] of pair) S.board[r][c] = 0;
+      if (countSols(S.board) !== 1) { for (let i = 0; i < pair.length; i++) S.board[pair[i][0]][pair[i][1]] = backups[i]; continue; }
+      removed += pair.length;
+    }
+    S.givenCells.clear();
+    for (let r = 0; r < 9; r++) for (let c = 0; c < 9; c++) if (S.board[r][c] !== 0) S.givenCells.add(`${r}-${c}`);
+    S.candidates = Array(9).fill(null).map(() => Array(9).fill(null).map(() => new Set()));
+    S.history = []; S.historyIndex = -1; S.selected.clear(); S.primaryCell = null;
+  }
+
+  function countEmpty() { let c=0; for(let r=0;r<9;r++)for(let col=0;col<9;col++)if(S.board[r][col]===0)c++; return c; }
+  function countNotes() { let c=0; for(let r=0;r<9;r++)for(let col=0;col<9;col++)c+=S.candidates[r][col].size; return c; }
+  function canAddNote() { return countNotes() < (DIFF[S.difficulty]?.notes ?? 99); }
+
+  function saveHist(desc='') {
+    if (S.historyIndex < S.history.length - 1) S.history = S.history.slice(0, S.historyIndex + 1);
+    S.history.push({ board: S.board.map(r=>[...r]), candidates: S.candidates.map(r=>r.map(c=>new Set(c))), desc });
+    S.historyIndex = S.history.length - 1;
+    if (S.history.length > 100) { S.history.shift(); S.historyIndex--; }
+  }
+
+  function undo() {
+    if (S.historyIndex < 0) return;
+    const snap = S.history[S.historyIndex];
+    S.board = snap.board.map(r=>[...r]);
+    S.candidates = snap.candidates.map(r=>r.map(c=>new Set(c)));
+    S.historyIndex--;
+    render();
+  }
+
+  function selectCell(row, col, additive) {
+    const key = `${row}-${col}`;
+    if (S.noteMode && S.lockedNumber) {
+      if (!S.givenCells.has(key) && S.board[row][col] === 0) {
+        const has = S.candidates[row][col].has(S.lockedNumber);
+        S.selected.clear(); S.selected.add(key); S.primaryCell = key;
+        if (has) { saveHist(); S.candidates[row][col].delete(S.lockedNumber); }
+        else if (canAddNote()) { saveHist(); S.candidates[row][col].add(S.lockedNumber); }
+        render(); return;
+      }
+      if (S.board[row][col] !== 0) { S.lockedNumber = S.board[row][col]; S.selected.clear(); S.primaryCell = null; render(); return; }
+    }
+    if (additive) {
+      if (S.selected.has(key)) { S.selected.delete(key); if (S.primaryCell===key) S.primaryCell = S.selected.size > 0 ? [...S.selected][0] : null; }
+      else { S.selected.add(key); S.primaryCell = key; }
+    } else { S.selected.clear(); S.selected.add(key); S.primaryCell = key; }
+    render();
+  }
+
+  function enterNumber(num) {
+    if (S.selected.size === 0) return;
+    const editable = [...S.selected].filter(k => !S.givenCells.has(k));
+    if (editable.length === 0) return;
+    saveHist(S.noteMode ? `Note ${num}` : `Enter ${num}`);
+    if (S.noteMode) {
+      for (const k of editable) {
+        const [r,c] = k.split('-').map(Number);
+        if (S.board[r][c] === 0) {
+          if (S.candidates[r][c].has(num)) S.candidates[r][c].delete(num);
+          else if (canAddNote()) S.candidates[r][c].add(num);
+        }
+      }
+    } else {
+      const key = S.primaryCell || editable[0];
+      if (S.givenCells.has(key)) return;
+      const [row,col] = key.split('-').map(Number);
+      S.board[row][col] = num;
+      S.candidates[row][col].clear();
+      if (S.autoCleanNotes) cleanNotes(row, col, num);
+    }
+    render();
+  }
+
+  function cleanNotes(row, col, num) {
+    for(let c=0;c<9;c++)S.candidates[row][c].delete(num);
+    for(let r=0;r<9;r++)S.candidates[r][col].delete(num);
+    const br=Math.floor(row/3)*3,bc=Math.floor(col/3)*3;
+    for(let r=br;r<br+3;r++)for(let c=bc;c<bc+3;c++)S.candidates[r][c].delete(num);
+  }
+
+  function clearSelected() {
+    const editable = [...S.selected].filter(k => !S.givenCells.has(k));
+    if (editable.length === 0) return;
+    saveHist('Clear');
+    for (const k of editable) { const [r,c] = k.split('-').map(Number); S.board[r][c] = 0; S.candidates[r][c].clear(); }
+    render();
+  }
+
+  // RENDERING
+  function render() {
+    const grid = document.getElementById('sdkGrid');
+    grid.innerHTML = '';
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        const cell = document.createElement('div');
+        cell.className = 'sdk-cell';
+        cell.dataset.row = row; cell.dataset.col = col;
+        const key = `${row}-${col}`, val = S.board[row][col];
+        if (val !== 0) {
+          cell.textContent = val;
+          if (S.givenCells.has(key)) cell.classList.add('given');
+        } else if (S.candidates[row][col].size > 0) {
+          const p = document.createElement('div'); p.className = 'pencil';
+          for (let n = 1; n <= 9; n++) { const sp = document.createElement('span'); sp.textContent = S.candidates[row][col].has(n) ? n : ''; p.appendChild(sp); }
+          cell.appendChild(p);
+        }
+        if (S.primaryCell === key) cell.classList.add('selected');
+        else if (S.selected.has(key)) cell.classList.add('multi-selected');
+        cell.addEventListener('click', (e) => selectCell(row, col, e.shiftKey));
+        let lastTap = 0;
+        cell.addEventListener('touchend', (e) => {
+          const now = Date.now();
+          if (now - lastTap < 300) { e.preventDefault(); if (!S.givenCells.has(key) && S.board[row][col] !== 0) { saveHist('Clear'); S.board[row][col] = 0; render(); } }
+          lastTap = now;
+        });
+        grid.appendChild(cell);
+      }
+    }
+    if (S.showHighlighting) {
+      if (S.noteMode && S.lockedNumber) hlLocked();
+      else if (S.primaryCell) hlRelated();
+    }
+    if (S.showConflicts) checkConflicts();
+    updateStatus();
+    updateNumpad();
+  }
+
+  function hlRelated() {
+    if (!S.primaryCell) return;
+    const [row,col] = S.primaryCell.split('-').map(Number);
+    const val = S.board[row][col];
+    const br=Math.floor(row/3)*3, bc=Math.floor(col/3)*3;
+    document.querySelectorAll('#sdkGrid .sdk-cell').forEach(cell => {
+      const r=+cell.dataset.row, c=+cell.dataset.col, k=`${r}-${c}`;
+      if (S.selected.has(k)) return;
+      if (val !== 0 && S.board[r][c] === val) cell.classList.add('highlight-same');
+      else if (r===row || c===col || (r>=br&&r<br+3&&c>=bc&&c<bc+3)) cell.classList.add('highlight-related');
+    });
+  }
+
+  function hlLocked() {
+    const num = S.lockedNumber;
+    document.querySelectorAll('#sdkGrid .sdk-cell').forEach(cell => {
+      const r=+cell.dataset.row, c=+cell.dataset.col, k=`${r}-${c}`;
+      if (S.selected.has(k)) return;
+      if (S.board[r][c] === num) cell.classList.add('highlight-same');
+      else if (S.candidates[r][c].has(num)) cell.classList.add('highlight-related');
+    });
+  }
+
+  function checkConflicts() {
+    for (let row=0;row<9;row++) for (let col=0;col<9;col++) {
+      const val = S.board[row][col]; if (!val) continue;
+      for (let c=0;c<9;c++) if(c!==col&&S.board[row][c]===val){markConf(row,col);markConf(row,c);}
+      for (let r=0;r<9;r++) if(r!==row&&S.board[r][col]===val){markConf(row,col);markConf(r,col);}
+      const br=Math.floor(row/3)*3,bc=Math.floor(col/3)*3;
+      for(let r=br;r<br+3;r++)for(let c=bc;c<bc+3;c++)if((r!==row||c!==col)&&S.board[r][c]===val){markConf(row,col);markConf(r,c);}
+    }
+  }
+  function markConf(r,c){document.querySelector(`#sdkGrid [data-row="${r}"][data-col="${c}"]`)?.classList.add('conflict');}
+
+  function updateStatus() {
+    let empty=countEmpty();
+    const nl = DIFF[S.difficulty]?.notes ?? 99;
+    document.getElementById('sdkStatusLeft').textContent = S.difficulty;
+    document.getElementById('sdkStatusCenter').textContent = empty > 0 ? `${empty} left` : '✓ Complete';
+    document.getElementById('sdkStatusRight').textContent = nl < 99 ? `${countNotes()}/${nl}` : '';
+  }
+
+  function updateNumpad() {
+    let hlNum = null;
+    if (S.noteMode && S.lockedNumber) hlNum = S.lockedNumber;
+    else if (S.primaryCell) { const [r,c] = S.primaryCell.split('-').map(Number); if (S.board[r][c]!==0) hlNum = S.board[r][c]; }
+    document.querySelectorAll('#sdkNumpad .sdk-num-btn').forEach(btn => {
+      btn.classList.toggle('highlight', parseInt(btn.dataset.num) === hlNum);
+    });
+  }
+
+  function check() {
+    document.querySelectorAll('#sdkGrid .sdk-cell').forEach(c => c.classList.remove('error','correct-flash'));
+    let allCorrect = true, hasErrors = false, filled = 0;
+    for (let row=0;row<9;row++) for (let col=0;col<9;col++) {
+      const val = S.board[row][col];
+      if (val === 0) allCorrect = false;
+      else { filled++; if (val !== S.solution[row][col]) { document.querySelector(`#sdkGrid [data-row="${row}"][data-col="${col}"]`).classList.add('error'); allCorrect = false; hasErrors = true; }}
+    }
+    if (allCorrect && filled === 81) {
+      document.querySelectorAll('#sdkGrid .sdk-cell').forEach((c,i) => setTimeout(() => c.classList.add('correct-flash'), i*10));
+    } else if (!hasErrors && filled > 0) {
+      document.querySelectorAll('#sdkGrid .sdk-cell').forEach(c => {
+        const r=+c.dataset.row, col2=+c.dataset.col;
+        if (S.board[r][col2]!==0 && !S.givenCells.has(`${r}-${col2}`)) { c.classList.add('correct-flash'); setTimeout(()=>c.classList.remove('correct-flash'),500); }
+      });
+    }
+  }
+
+  function toggleMenu() {
+    document.getElementById('sdkMenu').classList.toggle('show');
+    document.getElementById('sdkMenuOverlay').classList.toggle('show');
+  }
+
+  function init() {
+    if (initialized) return;
+    initialized = true;
+
+    // Build numpad
+    const numpad = document.getElementById('sdkNumpad');
+    for (let n = 1; n <= 9; n++) {
+      const btn = document.createElement('button');
+      btn.className = 'sdk-num-btn'; btn.textContent = n; btn.dataset.num = n;
+      btn.addEventListener('click', () => enterNumber(n));
+      numpad.appendChild(btn);
+    }
+
+    // Wire up controls
+    document.getElementById('sdkMenuBtn').addEventListener('click', toggleMenu);
+    document.getElementById('sdkMenuClose').addEventListener('click', toggleMenu);
+    document.getElementById('sdkMenuOverlay').addEventListener('click', toggleMenu);
+    document.getElementById('sdkUndo').addEventListener('click', undo);
+    document.getElementById('sdkCheck').addEventListener('click', check);
+
+    document.getElementById('sdkNoteBtn').addEventListener('click', () => {
+      S.noteMode = !S.noteMode;
+      if (S.noteMode && S.primaryCell) {
+        const [r,c] = S.primaryCell.split('-').map(Number);
+        if (S.board[r][c] !== 0) { S.lockedNumber = S.board[r][c]; S.selected.clear(); S.primaryCell = null; }
+        else S.lockedNumber = null;
+      } else S.lockedNumber = null;
+      document.getElementById('sdkNoteBtn').classList.toggle('active', S.noteMode);
+      render();
+    });
+
+    document.getElementById('sdkClearNotes').addEventListener('click', () => {
+      if (countNotes() === 0) return;
+      saveHist('Clear notes');
+      for (let r=0;r<9;r++) for (let c=0;c<9;c++) S.candidates[r][c].clear();
+      render();
+    });
+
+    document.getElementById('sdkNewGame').addEventListener('click', () => {
+      const diff = document.getElementById('sdkDiffSelect').value;
+      generatePuzzle(diff);
+      document.getElementById('sdkNoteBtn').classList.remove('active');
+      render();
+      toggleMenu();
+    });
+
+    document.getElementById('sdkRestart').addEventListener('click', () => {
+      for (let r=0;r<9;r++) for (let c=0;c<9;c++) if (!S.givenCells.has(`${r}-${c}`)) S.board[r][c] = 0;
+      S.candidates = Array(9).fill(null).map(() => Array(9).fill(null).map(() => new Set()));
+      S.history = []; S.historyIndex = -1; S.selected.clear(); S.primaryCell = null;
+      S.noteMode = false; S.lockedNumber = null;
+      document.getElementById('sdkNoteBtn').classList.remove('active');
+      render();
+      toggleMenu();
+    });
+
+    document.getElementById('sdkAutoClean').addEventListener('click', () => {
+      S.autoCleanNotes = !S.autoCleanNotes;
+      document.getElementById('sdkAutoClean').textContent = `Auto-Clean Notes: ${S.autoCleanNotes?'ON':'OFF'}`;
+    });
+    document.getElementById('sdkHighlight').addEventListener('click', () => {
+      S.showHighlighting = !S.showHighlighting;
+      document.getElementById('sdkHighlight').textContent = `Highlighting: ${S.showHighlighting?'ON':'OFF'}`;
+      render();
+    });
+    document.getElementById('sdkConflicts').addEventListener('click', () => {
+      S.showConflicts = !S.showConflicts;
+      document.getElementById('sdkConflicts').textContent = `Show Conflicts: ${S.showConflicts?'ON':'OFF'}`;
+      render();
+    });
+
+    // Keyboard handler (only when sudoku tab active)
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('viewSudoku').classList.contains('active')) return;
+      if (document.getElementById('sdkMenu').classList.contains('show')) {
+        if (e.key === 'Escape') toggleMenu();
+        return;
+      }
+      if (e.key === 'n' || e.key === 'N') { if(!e.ctrlKey&&!e.metaKey){e.preventDefault();document.getElementById('sdkNoteBtn').click();return;}}
+      if (S.noteMode && S.lockedNumber && e.key>='1'&&e.key<='9'){S.lockedNumber=parseInt(e.key);render();return;}
+      if (e.key==='Escape'){S.selected.clear();S.primaryCell=null;render();return;}
+      if ((e.ctrlKey||e.metaKey)&&e.key==='z'){e.preventDefault();undo();return;}
+      if (S.primaryCell) {
+        const [row,col] = S.primaryCell.split('-').map(Number);
+        if(e.key==='ArrowUp'&&row>0){e.preventDefault();selectCell(row-1,col,e.shiftKey);return;}
+        if(e.key==='ArrowDown'&&row<8){e.preventDefault();selectCell(row+1,col,e.shiftKey);return;}
+        if(e.key==='ArrowLeft'&&col>0){e.preventDefault();selectCell(row,col-1,e.shiftKey);return;}
+        if(e.key==='ArrowRight'&&col<8){e.preventDefault();selectCell(row,col+1,e.shiftKey);return;}
+      }
+      if(e.key>='1'&&e.key<='9')enterNumber(parseInt(e.key));
+      else if(e.key==='Backspace'||e.key==='Delete'||e.key==='0')clearSelected();
+    });
+
+    // Generate first puzzle
+    generatePuzzle('Medium');
+    render();
+  }
+
+  return { init };
+})();
+
+</script>
+</body>
+</html>
