@@ -1,0 +1,16 @@
+{
+  "appId": "com.bigcatmellow.shouldertimer",
+  "appName": "Shoulder Timer",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#0b0b0c"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "iconColor": "#F59E0B"
+    }
+  }
+}

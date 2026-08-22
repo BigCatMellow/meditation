@@ -1,0 +1,20 @@
+{
+  "name": "shoulder-timer-android",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Android pork shoulder cook timer with persistent local reminders",
+  "scripts": {
+    "build:web": "vite build && cp app.js dist/app.js",
+    "android:init": "npm run build:web && npx cap add android && node scripts/patch-android.mjs",
+    "android:build": "npm run android:init && cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "latest",
+    "@capacitor/core": "latest",
+    "@capacitor/local-notifications": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest",
+    "vite": "latest"
+  }
+}
