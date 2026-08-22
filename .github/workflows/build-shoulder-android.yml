@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - agent/pork-shoulder-android
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
