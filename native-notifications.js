@@ -1,6 +1,7 @@
 import { LocalNotifications } from '@capacitor/local-notifications';
 
 const CHANNEL_ID = 'shoulder-cook-alerts-v1';
+const ALARM_SOUND = 'shoulder_alarm.wav';
 const BASE_ID = 410000;
 const REPEAT_MINUTES = 10;
 const REPEAT_COUNT = 19;
@@ -16,6 +17,7 @@ async function ensureChannel() {
       description: 'High-priority reminders for pork shoulder cook steps',
       importance: 5,
       visibility: 1,
+      sound: ALARM_SOUND,
       vibration: true,
       lights: true,
       lightColor: '#F59E0B',
